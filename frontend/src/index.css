@@ -1,0 +1,321 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #f5f6fa;
+  background-color: #181A20;
+}
+
+body,
+html,
+.app-background {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.app-background {
+  background-image: linear-gradient(rgba(24, 26, 32, 0.96), rgba(24, 26, 32, 0.96)), url('https://tse4.mm.bing.net/th/id/OIP.xr1bq14kpUSAAf9jqv_SAAHaDz?pid=Api&P=0&h=220');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-top: 2rem;
+  text-align: center;
+  color: #F0B90B;
+  letter-spacing: 2px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  background: rgba(35, 38, 47, 0.92);
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  box-shadow: 0 8px 32px 0 rgba(24, 26, 32, 0.27);
+}
+
+.header hr {
+  border: none;
+  border-top: 2px solid #F0B90B33;
+  margin: 1rem 0 0 0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  min-height: 60vh;
+  margin-top: 2rem;
+}
+.email-buttons{
+  position: relative;
+  /* align-content: center; */
+  left: 70px;
+}
+#email{
+  position: relative;
+  
+  top: -10px;
+}
+.login-buttons{
+  position: relative;
+  top: 150px;
+  right: 70px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  background: rgba(35, 38, 47, 0.98);
+  box-shadow: 0 8px 32px 0 rgba(24, 26, 32, 0.17);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  color: #f5f6fa;
+  width: 320px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border: 1px solid rgba(240,185,11,0.10);
+  position: relative;
+  margin: 0 auto;
+}
+
+.login-form input {
+  background: rgba(255,255,255,0.04);
+  color: #f5f6fa;
+  border: 1px solid #23262F;
+  padding: 0.8em 1em;
+  font-size: 1.1em;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.07);
+}
+
+.login-form input:focus {
+  border: 1.5px solid #0ECB81;
+  box-shadow: 0 0 0 2px #0ECB8133;
+}
+
+.login-form button {
+  background: linear-gradient(90deg, #F0B90B 0%, #23262F 100%);
+  color: #181A20;
+  font-weight: 700;
+  padding: 0.8em 1em;
+  font-size: 1.1em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.12);
+  letter-spacing: 1px;
+}
+
+.login-form button:hover {
+  background: linear-gradient(90deg, #23262F 0%, #F0B90B 100%);
+  color: #F0B90B;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(24, 26, 32, 0.18);
+}
+
+.login-form select {
+  background: rgba(255,255,255,0.04);
+  color: #f5f6fa;
+  border: 1px solid #23262F;
+  padding: 0.8em 1em;
+  font-size: 1.1em;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.07);
+  margin-bottom: 0.5em;
+}
+
+.login-form select:focus {
+  border: 1.5px solid #0ECB81;
+  box-shadow: 0 0 0 2px #0ECB8133;
+}
+
+.preview-table-container {
+  margin-top: 2rem;
+  background: rgba(35, 38, 47, 0.98);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(24, 26, 32, 0.17);
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  background: transparent;
+}
+
+.modern-table th, .modern-table td {
+  padding: 0.75em 1.2em;
+  text-align: left;
+  border-bottom: 1px solid #23262F;
+  color: #f5f6fa;
+}
+
+.modern-table th {
+  background: #23262F;
+  color: #F0B90B;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.modern-table tr:last-child td {
+  border-bottom: none;
+}
+
+.modern-table tr {
+  transition: background 0.2s;
+}
+
+.modern-table tr:hover {
+  background: rgba(240, 185, 11, 0.08);
+}
+
+.preview-table-container button {
+  background: linear-gradient(90deg, #F0B90B 0%, #23262F 100%);
+  color: #181A20;
+  font-weight: 700;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.12);
+  letter-spacing: 1px;
+  margin-left: 1em;
+}
+
+.preview-table-container button:hover {
+  background: linear-gradient(90deg, #23262F 0%, #F0B90B 100%);
+  color: #F0B90B;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(24, 26, 32, 0.18);
+}
+
+.marketwatch-container {
+  margin: 2rem auto;
+  max-width: 900px;
+  background: rgba(35, 38, 47, 0.98);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(24, 26, 32, 0.17);
+}
+
+.marketwatch-filter {
+  width: 100%;
+  max-width: 350px;
+  padding: 0.7em 1em;
+  margin-bottom: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #23262F;
+  background: rgba(255,255,255,0.04);
+  color: #f5f6fa;
+  font-size: 1.1em;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.marketwatch-filter:focus {
+  border: 1.5px solid #F0B90B;
+  box-shadow: 0 0 0 2px #F0B90B33;
+}
+
+.marketwatch-table-wrapper {
+  overflow-x: auto;
+}
+
+.watchlist-btn {
+  background: linear-gradient(90deg, #0ECB81 0%, #23262F 100%);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.4em 1em;
+  font-size: 1em;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.12);
+  letter-spacing: 1px;
+}
+
+.watchlist-btn:hover {
+  background: linear-gradient(90deg, #23262F 0%, #0ECB81 100%);
+  color: #0ECB81;
+  transform: translateY(-2px) scale(1.03);
+}
+
+.main-nav {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem 0 0.5rem 0;
+}
+
+.nav-link {
+  color: #F0B90B;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 0.4em 1.2em;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+}
+
+.nav-link:hover {
+  background: rgba(240, 185, 11, 0.08);
+  color: #fff;
+}
+
+.nav-link.active {
+  background: #23262F;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.12);
+}
+
+.email-buttons, .login-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+#email, #password {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-buttons button {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.signup-extra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+.signup-extra input,
+.signup-extra select {
+  width: 100%;
+  box-sizing: border-box;
+}
