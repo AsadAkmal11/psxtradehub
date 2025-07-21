@@ -13,6 +13,8 @@ function CustomerPortfolio() {
     portfolioName: '',
     initialCapital: '',
   });
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,37 +26,56 @@ function CustomerPortfolio() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Add validation
-    console.log('Form data submitted:', formData);
-    // TODO: Send data to backend API
-    /*
+    setMessage('');
+    setError('');
+
+    // Basic validation
+    for (const key in formData) {
+      if (formData[key] === '' && key !== 'phone') {
+        setError('Please fill out all required fields.');
+        return;
+      }
+    }
+    
+    const token = localStorage.getItem('token');
+
     try {
-      const response = await fetch('/api/customer-portfolio', {
+      const response = await fetch('http://localhost:5000/api/customer-portfolio', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(formData),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
-        const result = await response.json();
-        console.log('Successfully saved:', result);
-        // TODO: show success message and clear form
+        setMessage('Customer and portfolio created successfully!');
+        setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            cnic: '',
+            customerNo: '',
+            portfolioName: '',
+            initialCapital: '',
+        });
       } else {
-        console.error('Failed to save data');
-        // TODO: show error message
+        setError(result.message || 'Failed to save data');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      setError('Error submitting form: ' + error.message);
     }
-    */
   };
 
   return (
     <div className="form-container">
       <h2>Customer & Portfolio Management</h2>
       <form onSubmit={handleSubmit}>
+        {message && <p style={{ color: 'green' }}>{message}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <h3>Customer Details</h3>
         <div className="form-group">
           <label htmlFor="fullName">Full Name</label>

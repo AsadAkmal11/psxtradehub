@@ -16,6 +16,9 @@ app.use('/api/auth', authRoutes); // ✅
 const stockRoutes = require('./routes/stock.routes');
 app.use('/api/stocks', stockRoutes);
 
+const customerRoutes = require('./routes/customer.routes');
+app.use('/api', customerRoutes);
+
 // Test route (optional)
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -23,7 +26,10 @@ app.get('/', (req, res) => {
 
 // Connect to DB and start server
 const PORT = process.env.PORT || 5000;
-require('./models/stock.model'); 
+require('./models/stock.model');
+require('./models/customer.model');
+require('./models/portfolio.model');
+
 db.sync()
   .then(() => {
     console.log('Connected to MySQL');

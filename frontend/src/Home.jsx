@@ -7,9 +7,11 @@ function Home() {
     <div className="home-container">
       <h2>Welcome, {user?.username || 'User'}!</h2>
       <nav className="main-nav">
-        <NavLink to="/upload" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          Upload File
-        </NavLink>
+        {user && user.role === 'admin' && (
+          <NavLink to="/upload" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+            Upload File
+          </NavLink>
+        )}
         <NavLink to="/watchlist" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
           Watchlist
         </NavLink>
