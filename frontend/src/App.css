@@ -105,3 +105,53 @@
 .submit-btn:hover {
   background-color: #2b6cb0; /* Darker blue */
 }
+
+/* Watchlist message style */
+.watchlist-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background-color: #38a169; /* Green */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Logout Button */
+.logout-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: #e53e3e; /* Red */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #c53030; /* Darker red */
+}
+
+/* Back Button */
+.back-btn {
+  position: absolute;
+  top: 7rem;
+  left: 2rem;
+  background: none;
+  border: 1px solid #4a5568; /* Gray */
+  color: #a0aec0; /* Lighter gray */
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background-color: #4a5568;
+  color: white;
+}

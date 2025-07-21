@@ -7,6 +7,23 @@ import CustomerPortfolio from './CustomerPortfolio'; // Import the new component
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, NavLink } from 'react-router-dom';
 import React from 'react';
 
+function LogoutButton() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/');
+    }
+  };
+
+  return (
+    <button onClick={handleLogout} className="logout-btn">
+      Logout
+    </button>
+  );
+}
+
 function App() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
@@ -16,6 +33,7 @@ function App() {
       <div className="app-background">
         <div className="header">
           <h1>PSX Trade Hub</h1>
+          {token && user && <LogoutButton />}
           <hr />
         </div>
         <Routes>

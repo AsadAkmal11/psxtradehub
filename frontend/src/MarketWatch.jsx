@@ -1,17 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import BackButton from './components/BackButton';
 
 function MarketWatch() {
   const [stocks, setStocks] = useState([]);
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('symbol');
   const [sortAsc, setSortAsc] = useState(true);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/stocks')
       .then(res => setStocks(res.data.stocks))
       .catch(() => setStocks([]));
   }, []);
+
+  const handleAddToWatchlist = async (stockSymbol) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setMessage('You must be logged in to add to a watchlist.');
+      return;
+    }
+    try {
+      const response = await axios.post('http://localhost:5000/api/watchlist', 
+        { stockSymbol },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Failed to add to watchlist.');
+    }
+    setTimeout(() => setMessage(''), 3000); // Clear message after 3 seconds
+  };
 
   const handleSort = (key) => {
     if (sortKey === key) setSortAsc(!sortAsc);
@@ -34,7 +54,9 @@ function MarketWatch() {
 
   return (
     <div className="marketwatch-container">
+      <BackButton />
       <h2>Market Watch</h2>
+      {message && <div className="watchlist-message">{message}</div>}
       <input
         type="text"
         placeholder="Filter by symbol or name"
@@ -70,7 +92,12 @@ function MarketWatch() {
                   </td>
                   <td>{stock.volume?.toLocaleString()}</td>
                   <td>
-                    <button className="watchlist-btn">Add to Watchlist</button>
+                    <button 
+                      className="watchlist-btn"
+                      onClick={() => handleAddToWatchlist(stock.symbol)}
+                    >
+                      Add to Watchlist
+                    </button>
                   </td>
                 </tr>
               ))}

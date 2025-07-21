@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css'; // Assuming you have some shared styles here
+import BackButton from './components/BackButton';
 
 function CustomerPortfolio() {
   const [formData, setFormData] = useState({
@@ -72,6 +73,7 @@ function CustomerPortfolio() {
 
   return (
     <div className="form-container">
+      <BackButton />
       <h2>Customer & Portfolio Management</h2>
       <form onSubmit={handleSubmit}>
         {message && <p style={{ color: 'green' }}>{message}</p>}

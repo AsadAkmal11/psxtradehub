@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
+import BackButton from './components/BackButton';
 
 function StockUpload() {
   const [csvFile, setCsvFile] = useState(null);
@@ -53,6 +54,7 @@ function StockUpload() {
 
   return (
     <div>
+      <BackButton />
       <h2>Upload CSV</h2>
       <input type="file" accept=".csv" onChange={handleFileChange} />
       {previewData.length > 0 && (

@@ -19,6 +19,9 @@ app.use('/api/stocks', stockRoutes);
 const customerRoutes = require('./routes/customer.routes');
 app.use('/api', customerRoutes);
 
+const watchlistRoutes = require('./routes/watchlist.routes');
+app.use('/api', watchlistRoutes);
+
 // Test route (optional)
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -29,6 +32,7 @@ const PORT = process.env.PORT || 5000;
 require('./models/stock.model');
 require('./models/customer.model');
 require('./models/portfolio.model');
+require('./models/watchlist.model');
 
 db.sync()
   .then(() => {
