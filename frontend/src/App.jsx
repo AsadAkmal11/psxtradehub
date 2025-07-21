@@ -3,6 +3,7 @@ import Login from './Login';
 import StockUpload from './stockupload';
 import Home from './Home';
 import MarketWatch from './MarketWatch';
+import CustomerPortfolio from './CustomerPortfolio'; // Import the new component
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, NavLink } from 'react-router-dom';
 import React from 'react';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/upload" element={<AdminRoute><StockUpload /></AdminRoute>} />
           <Route path="/watchlist" element={<ProtectedRoute><MarketWatch /></ProtectedRoute>} />
           <Route path="/marketwatch" element={<ProtectedRoute><MarketWatch /></ProtectedRoute>} />
+          <Route path="/customer-portfolio" element={<ProtectedRoute><CustomerPortfolio /></ProtectedRoute>} />
           <Route path="*" element={<LoginWrapper />} />
         </Routes>
       </div>

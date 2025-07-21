@@ -26,7 +26,7 @@ function Login() {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      alert('Login successful!');
+      //alert('Login successful!');
       console.log('Login success:', res.data);
       navigate('/home'); // Always go to home after login
       }

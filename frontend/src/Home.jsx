@@ -13,6 +13,9 @@ function Home() {
         <NavLink to="/watchlist" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
           Watchlist
         </NavLink>
+        <NavLink to="/customer-portfolio" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+          Customer/Portfolio
+        </NavLink>
       </nav>
       <hr/>
       {/* <p style={{marginTop: '2rem'}}></p> */}
