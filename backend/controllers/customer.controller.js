@@ -49,4 +49,20 @@ exports.createCustomerAndPortfolio = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+// New: Save only customer
+exports.createCustomer = async (req, res) => {
+  const { fullName, email, phone, cnic, customerNo } = req.body;
+  try {
+    let customer = await Customer.findOne({ where: { customerNo } });
+    if (customer) {
+      return res.status(409).json({ message: 'Customer already exists.' });
+    }
+    customer = await Customer.create({ fullName, email, phone, cnic, customerNo });
+    res.status(201).json({ message: 'Customer created successfully', customer });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to create customer', error: error.message });
+  }
 }; 

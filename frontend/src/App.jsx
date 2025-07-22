@@ -3,13 +3,28 @@ import Login from './Login';
 import StockUpload from './stockupload';
 import Home from './Home';
 import MarketWatch from './MarketWatch';
-import CustomerPortfolio from './CustomerPortfolio'; // Import the new component
+import CustomerPortfolio from './CustomerPortfolio';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, NavLink } from 'react-router-dom';
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-function LogoutButton() {
+function MenuButton() {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef();
   const navigate = useNavigate();
+
+  
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleLogout = () => {
+    setOpen(false);
     if (window.confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -18,22 +33,30 @@ function LogoutButton() {
   };
 
   return (
-    <button onClick={handleLogout} className="logout-btn">
-      Logout
-    </button>
+    <div className="menu-container" ref={menuRef}>
+      <button className="menu-icon" onClick={() => setOpen(o => !o)} aria-label="Open menu">
+        <span className="menu-bar"></span>
+        <span className="menu-bar"></span>
+        <span className="menu-bar"></span>
+      </button>
+      {open && (
+        <div className="dropdown-menu">
+          <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+        </div>
+      )}
+    </div>
   );
 }
 
 function App() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-  const showNav = token && user;
   return (
     <Router>
       <div className="app-background">
         <div className="header">
           <h1>PSX Trade Hub</h1>
-          {token && user && <LogoutButton />}
+          {token && user && <MenuButton />}
           <hr />
         </div>
         <Routes>

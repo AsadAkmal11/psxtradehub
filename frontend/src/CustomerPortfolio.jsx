@@ -25,11 +25,42 @@ function CustomerPortfolio() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  // Save only customer
+  const handleSaveCustomer = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
+    const { fullName, email, phone, cnic, customerNo } = formData;
+    if (!fullName || !email || !cnic || !customerNo) {
+      setError('Please fill out all required customer fields.');
+      return;
+    }
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch('http://localhost:5000/api/customer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ fullName, email, phone, cnic, customerNo }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setMessage('Customer saved successfully!');
+      } else {
+        setError(result.message || 'Failed to save customer');
+      }
+    } catch (error) {
+      setError('Error saving customer: ' + error.message);
+    }
+  };
 
+  // Save both customer and portfolio
+  const handleSavePortfolio = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    setError('');
     // Basic validation
     for (const key in formData) {
       if (formData[key] === '' && key !== 'phone') {
@@ -37,9 +68,7 @@ function CustomerPortfolio() {
         return;
       }
     }
-    
     const token = localStorage.getItem('token');
-
     try {
       const response = await fetch('http://localhost:5000/api/customer-portfolio', {
         method: 'POST',
@@ -49,19 +78,17 @@ function CustomerPortfolio() {
         },
         body: JSON.stringify(formData),
       });
-
       const result = await response.json();
-
       if (response.ok) {
         setMessage('Customer and portfolio created successfully!');
         setFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            cnic: '',
-            customerNo: '',
-            portfolioName: '',
-            initialCapital: '',
+          fullName: '',
+          email: '',
+          phone: '',
+          cnic: '',
+          customerNo: '',
+          portfolioName: '',
+          initialCapital: '',
         });
       } else {
         setError(result.message || 'Failed to save data');
@@ -75,7 +102,7 @@ function CustomerPortfolio() {
     <div className="form-container">
       <BackButton />
       <h2>Customer & Portfolio Management</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         {message && <p style={{ color: 'green' }}>{message}</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <h3>Customer Details</h3>
@@ -133,6 +160,7 @@ function CustomerPortfolio() {
             required
           />
         </div>
+        <button type="button" className="submit-btn" onClick={handleSaveCustomer} style={{marginBottom: '1rem'}}>Save Customer</button>
 
         <h3>Portfolio Details</h3>
         <div className="form-group">
@@ -157,8 +185,7 @@ function CustomerPortfolio() {
             required
           />
         </div>
-        
-        <button type="submit" className="submit-btn">Save</button>
+        <button type="button" className="submit-btn" onClick={handleSavePortfolio}>Save Portfolio</button>
       </form>
     </div>
   );

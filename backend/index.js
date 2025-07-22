@@ -5,12 +5,11 @@ const db = require('./config/db');
 const cors = require('cors');
 app.use(cors());
 
-// Middleware
 app.use(express.json({ limit: '10mb' })); 
 
 
-// 🔥 Add your auth routes here
-const authRoutes = require('./routes/auth.routes'); // ✅
+
+const authRoutes = require('./routes/auth.routes'); 
 app.use('/api/auth', authRoutes); // ✅
 
 const stockRoutes = require('./routes/stock.routes');
@@ -22,7 +21,7 @@ app.use('/api', customerRoutes);
 const watchlistRoutes = require('./routes/watchlist.routes');
 app.use('/api', watchlistRoutes);
 
-// Test route (optional)
+// Test route 
 app.get('/', (req, res) => {
   res.send('API is running');
 });
