@@ -10,7 +10,7 @@ app.use(express.json({ limit: '10mb' }));
 
 
 const authRoutes = require('./routes/auth.routes'); 
-app.use('/api/auth', authRoutes); // ✅
+app.use('/api/auth', authRoutes); 
 
 const stockRoutes = require('./routes/stock.routes');
 app.use('/api/stocks', stockRoutes);

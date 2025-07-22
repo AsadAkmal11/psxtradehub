@@ -1,0 +1,186 @@
+.hamburger-icon, .themed-hamburger {
+  position: absolute;
+  top: 2.2rem;
+  left: 2.2rem;
+  z-index: 2100;
+  cursor: pointer;
+  background: rgba(35, 38, 47, 0.92);
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(24,26,32,0.18);
+  transition: background 0.2s, box-shadow 0.2s;
+  border: 2px solid #F0B90B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hamburger-icon.left, .themed-hamburger.left {
+  left: 2.2rem;
+  right: auto;
+}
+.hamburger-icon:hover, .themed-hamburger:hover {
+  background: #23262F;
+  box-shadow: 0 4px 16px rgba(240,185,11,0.12);
+}
+
+.overlay-panel, .themed-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(24, 26, 32, 0.98);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s;
+  box-shadow: 0 8px 32px 0 rgba(24, 26, 32, 0.27);
+  transition: all 0.35s cubic-bezier(.4,1.3,.5,1), border-radius 0.3s;
+}
+.menu-transition {
+  transition: all 0.35s cubic-bezier(.4,1.3,.5,1), border-radius 0.3s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Compact (half-screen) mode */
+.overlay-panel.compact, .themed-overlay.compact {
+  width: 480px;
+  max-width: 96vw;
+  height: 60vh;
+  min-height: 340px;
+  max-height: 90vh;
+  top: 6vh;
+  left: 6vw;
+  right: auto;
+  bottom: auto;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(240, 185, 11, 0.18);
+  background: rgba(24, 26, 32, 0.98);
+}
+
+/* Minimized: only header bar, top-left */
+.overlay-panel.minimized, .themed-overlay.minimized {
+  width: 320px;
+  height: 56px;
+  min-height: 0;
+  max-height: 56px;
+  top: 2.2rem;
+  left: 2.2rem;
+  right: auto;
+  bottom: auto;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(35, 38, 47, 0.98);
+  box-shadow: 0 2px 8px 0 rgba(240, 185, 11, 0.12);
+}
+
+/* Maximized: full screen */
+.overlay-panel.maximized, .themed-overlay.maximized {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  border-radius: 0;
+}
+
+.overlay-header, .themed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 28px;
+  background: rgba(35, 38, 47, 0.98);
+  color: #F0B90B;
+  border-bottom: 2px solid #F0B90B33;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 2px 8px 0 rgba(24, 26, 32, 0.12);
+  min-height: 56px;
+  height: 56px;
+}
+.overlay-panel.minimized .overlay-header,
+.themed-overlay.minimized .themed-header {
+  border-radius: 14px;
+}
+
+.overlay-title, .themed-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #F0B90B;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.window-btn {
+  background: none;
+  border: none;
+  color: #F0B90B;
+  font-size: 1.3rem;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 4px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.window-btn:hover {
+  color: #181A20;
+  background: #F0B90B;
+}
+
+.overlay-nav, .themed-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 36px 28px;
+  gap: 24px;
+  transition: opacity 0.2s;
+}
+.overlay-panel.minimized .overlay-nav,
+.themed-overlay.minimized .themed-nav {
+  display: none;
+}
+.overlay-nav a, .themed-nav a {
+  color: #F0B90B;
+  font-size: 1.15rem;
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 2px solid transparent;
+  transition: border 0.2s, color 0.2s, background 0.2s;
+  font-weight: 600;
+  border-radius: 8px;
+}
+.overlay-nav a:hover, .themed-nav a:hover {
+  color: #181A20;
+  background: #F0B90B;
+  border-bottom: 2px solid #F0B90B;
+}
+
+@media (max-width: 600px) {
+  .overlay-header, .themed-header, .overlay-nav, .themed-nav {
+    padding: 12px 10px;
+  }
+  .overlay-nav, .themed-nav {
+    gap: 14px;
+  }
+  .hamburger-icon, .themed-hamburger {
+    top: 1.2rem;
+    left: 1.2rem;
+    padding: 7px;
+  }
+  .overlay-panel.compact, .themed-overlay.compact {
+    width: 98vw;
+    left: 1vw;
+    min-width: 0;
+    padding: 0;
+  }
+  .overlay-panel.minimized, .themed-overlay.minimized {
+    width: 90vw;
+    left: 1vw;
+  }
+}
