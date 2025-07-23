@@ -2,14 +2,11 @@ import React from "react";
 import "./Window.css";
 
 function useDraggable(initialPosition, canDrag) {
-  // const [position, setPosition] = React.useState(initialPosition);
   const dragging = React.useRef(false);
   const offset = React.useRef({ x: 0, y: 0 });
 
   const [position, setPosition] = React.useState(() => initialPosition);  // ✅ This avoids needing useEffect
-  // React.useEffect(() => {
-  //   setPosition(initialPosition);
-  // }, [initialPosition]);
+
 
   const onPointerDown = (e) => {
     if (!canDrag) return;

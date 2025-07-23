@@ -10,9 +10,10 @@ function Currency() {
   const fetchCurrencies = async () => {
     try {
       const res = await axios.get('/api/currency');
-      setCurrencies(res.data.currencies);
+      setCurrencies(Array.isArray(res.data.currencies) ? res.data.currencies : []);
     } catch (err) {
       setMessage('Failed to fetch currencies');
+      setCurrencies([]);
     }
   };
 
@@ -93,7 +94,7 @@ function Currency() {
           </tr>
         </thead>
         <tbody>
-          {currencies.map((currency) => (
+          {(currencies || []).map((currency) => (
             <tr key={currency.id}>
               <td>{currency.name}</td>
               <td>{currency.code}</td>

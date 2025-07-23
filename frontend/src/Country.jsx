@@ -10,9 +10,10 @@ function Country() {
   const fetchCountries = async () => {
     try {
       const res = await axios.get('/api/country');
-      setCountries(res.data.countries);
+      setCountries(Array.isArray(res.data.countries) ? res.data.countries : []);
     } catch (err) {
       setMessage('Failed to fetch countries');
+      setCountries([]);
     }
   };
 
@@ -93,7 +94,7 @@ function Country() {
           </tr>
         </thead>
         <tbody>
-          {countries.map((country) => (
+          {(countries || []).map((country) => (
             <tr key={country.id}>
               <td>{country.name}</td>
               <td>{country.code}</td>
