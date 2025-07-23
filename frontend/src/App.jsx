@@ -7,6 +7,7 @@ import CustomerPortfolio from './CustomerPortfolio';
 import Country from './Country';
 import Currency from './Currency';
 import Customers from './Customers';
+import Exchange from './Exchange';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
@@ -18,7 +19,8 @@ const WINDOW_CONFIG = {
   'customer-portfolio': { title: 'Customer/Portfolio', component: CustomerPortfolio },
   country: { title: 'Country', component: Country },
   currency: { title: 'Currency', component: Currency },
-  customers: { title: 'Customers', component: Customers },
+  customers: { title: 'Customers Information', component: Customers },
+  exchange: { title: 'Exchange', component: Exchange },
 };
 
 function App() {
@@ -66,6 +68,7 @@ function AppContent() {
     { key: 'country', label: 'Country' },
     { key: 'currency', label: 'Currency' },
     { key: 'customers', label: 'Customers Information' },
+    { key: 'exchange', label: 'Exchange' },
   ];
 
   const handleLogout = () => {

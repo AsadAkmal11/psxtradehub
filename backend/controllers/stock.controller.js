@@ -11,7 +11,7 @@ let previewCache = [];
 
 const preview = async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-  const results = [];
+  const results = []; 
   fs.createReadStream(req.file.path)
     .pipe(csv())
     .on('data', (data) => results.push(data))
@@ -23,7 +23,7 @@ const preview = async (req, res) => {
 };
 
 const save = async (req, res) => {
-  const previewData = req.body.data; // ← ✅ Take from frontend
+  const previewData = req.body.data; //  Take from frontend
 
   if (!previewData || !previewData.length) {
     return res.status(400).json({ message: 'No stock data to save' });

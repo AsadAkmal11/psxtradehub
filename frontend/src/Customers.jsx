@@ -6,7 +6,7 @@ function Customers() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('/api/customer')
+    axios.get('/api/customers')
       .then(res => setCustomers(Array.isArray(res.data.customers) ? res.data.customers : []))
       .catch(() => setMessage('Failed to fetch customers'));
   }, []);

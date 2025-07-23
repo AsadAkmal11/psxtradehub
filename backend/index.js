@@ -27,6 +27,9 @@ app.use('/api', countryRoutes);
 const currencyRoutes = require('./routes/currency.routes');
 app.use('/api', currencyRoutes);
 
+const exchangeRoutes = require('./routes/exchange.routes');
+app.use('/api', exchangeRoutes);
+
 // Test route 
 app.get('/', (req, res) => {
   res.send('API is running');
@@ -40,6 +43,7 @@ require('./models/portfolio.model');
 require('./models/watchlist.model');
 require('./models/country.model');
 require('./models/currency.model');
+require('./models/exchange.model');
 
 db.sync()
   .then(() => {

@@ -5,4 +5,7 @@ const authMiddleware = require('../middleware/auth.middleware');
 
 router.post('/customer-portfolio', authMiddleware, customerController.createCustomerAndPortfolio);
 
+// Get all customers
+router.get('/customers', customerController.getAllCustomers);
+
 module.exports = router; 

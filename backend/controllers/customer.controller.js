@@ -65,4 +65,14 @@ exports.createCustomer = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Failed to create customer', error: error.message });
   }
+};
+
+// Get all customers
+exports.getAllCustomers = async (req, res) => {
+  try {
+    const customers = await Customer.findAll();
+    res.status(200).json({ customers });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch customers', error: error.message });
+  }
 }; 
