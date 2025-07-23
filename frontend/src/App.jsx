@@ -4,6 +4,8 @@ import StockUpload from './stockupload';
 import Home from './Home';
 import MarketWatch from './MarketWatch';
 import CustomerPortfolio from './CustomerPortfolio';
+import Country from './Country';
+import Currency from './Currency';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
@@ -13,6 +15,8 @@ const WINDOW_CONFIG = {
   upload: { title: 'Stock Upload', component: StockUpload, admin: true },
   marketwatch: { title: 'Market Watch', component: MarketWatch },
   'customer-portfolio': { title: 'Customer/Portfolio', component: CustomerPortfolio },
+  country: { title: 'Country', component: Country },
+  currency: { title: 'Currency', component: Currency },
 };
 
 function App() {
@@ -57,6 +61,8 @@ function AppContent() {
     ...(user && user.role === 'admin' ? [{ key: 'upload', label: 'Stock Upload' }] : []),
     { key: 'marketwatch', label: 'Market Watch' },
     { key: 'customer-portfolio', label: 'Customer/Portfolio' },
+    { key: 'country', label: 'Country' },
+    { key: 'currency', label: 'Currency' },
   ];
 
   const handleLogout = () => {

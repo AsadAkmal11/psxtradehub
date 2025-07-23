@@ -1,6 +1,6 @@
 .window-panel {
-  top: 8vh;
-  left: 50%;
+  /* top: 8vh;
+  left: 50%; */
   width: 520px;
   min-width: 320px;
   max-width: 98vw;
@@ -14,6 +14,9 @@
   flex-direction: column;
   transition: all 0.35s cubic-bezier(.4,1.3,.5,1), border-radius 0.3s;
   overflow: hidden;
+}
+.draggable-window {
+  transform: none !important;
 }
 
 /* No need to forcibly unset top/left/transform for draggable-window, react-draggable handles it */
