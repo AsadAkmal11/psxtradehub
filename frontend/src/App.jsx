@@ -4,49 +4,16 @@ import StockUpload from './stockupload';
 import Home from './Home';
 import MarketWatch from './MarketWatch';
 import CustomerPortfolio from './CustomerPortfolio';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import React, { useState, useRef, useEffect } from 'react';
-import Menu from './menu.jsx';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Window from './Window.jsx';
+import { FaBars } from 'react-icons/fa';
 
-function MenuButton() {
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleLogout = () => {
-    setOpen(false);
-    if (window.confirm('Are you sure you want to logout?')) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      navigate('/');
-    }
-  };
-
-  return (
-    <div className="menu-container" ref={menuRef}>
-      <button className="menu-icon" onClick={() => setOpen(o => !o)} aria-label="Open menu">
-        <span className="menu-bar"></span>
-        <span className="menu-bar"></span>
-        <span className="menu-bar"></span>
-      </button>
-      {open && (
-        <div className="dropdown-menu">
-          <button className="dropdown-item" onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-    </div>
-  );
-}
+const WINDOW_CONFIG = {
+  upload: { title: 'Stock Upload', component: StockUpload, admin: true },
+  marketwatch: { title: 'Market Watch', component: MarketWatch },
+  'customer-portfolio': { title: 'Customer/Portfolio', component: CustomerPortfolio },
+};
 
 function App() {
   return (
@@ -59,39 +26,127 @@ function App() {
 function AppContent() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-  const location = useLocation();
-  // Hide Menu on login page (path is '/')
-  const hideMenu = location.pathname === '/';
+  const navigate = useNavigate();
+  const [openWindow, setOpenWindow] = useState(null);
+  const [windowStates, setWindowStates] = useState({});
+  const [menuState, setMenuState] = useState('minimized');
+
+  if (!token || !user) {
+    return <LoginWrapper onLogin={() => {
+      setOpenWindow(null);
+      setMenuState('minimized');
+      navigate('/home');
+    }} />;
+  }
+
+  const handleMenuOpen = () => setMenuState('normal');
+  const handleMenuClose = () => setMenuState('minimized');
+  const handleOpenWindow = (key) => {
+    setOpenWindow(key);
+    setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
+    setMenuState('minimized');
+  };
+  const handleMinimize = (key) => setWindowStates((ws) => ({ ...ws, [key]: 'minimized' }));
+  const handleMaximize = (key) => setWindowStates((ws) => ({ ...ws, [key]: ws[key] === 'maximized' ? 'normal' : 'maximized' }));
+  const handleClose = (key) => {
+    setWindowStates((ws) => ({ ...ws, [key]: undefined }));
+    setOpenWindow(null);
+  };
+
+  const menuLinks = [
+    ...(user && user.role === 'admin' ? [{ key: 'upload', label: 'Stock Upload' }] : []),
+    { key: 'marketwatch', label: 'Market Watch' },
+    { key: 'customer-portfolio', label: 'Customer/Portfolio' },
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setOpenWindow(null);
+    setMenuState('minimized');
+    navigate('/');
+  };
+
   return (
     <div className="app-background">
       <div className="header">
-        <h1>PSX Trade Hub</h1>
-        {token && user && <MenuButton />}
+        <div className="header-row">
+          <button className="hamburger-icon left" onClick={handleMenuOpen}>
+            <FaBars size={28} color="#F0B90B" />
+          </button>
+          <h1 className="header-title">PSX Trade Hub</h1>
+          <button
+            className="logout-btn" 
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
         <hr />
       </div>
-      {!hideMenu && <Menu />}
-      <Routes>
-        <Route path="/" element={<LoginWrapper />} />
-        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/upload" element={<AdminRoute><StockUpload /></AdminRoute>} />
-        <Route path="/watchlist" element={<ProtectedRoute><MarketWatch /></ProtectedRoute>} />
-        <Route path="/marketwatch" element={<ProtectedRoute><MarketWatch /></ProtectedRoute>} />
-        <Route path="/customer-portfolio" element={<ProtectedRoute><CustomerPortfolio /></ProtectedRoute>} />
-        <Route path="*" element={<LoginWrapper />} />
-      </Routes>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Home />
+      </div>
+      {menuState !== 'minimized' && (
+        <Window
+          title="Menu"
+          windowState={menuState}
+          onMinimize={() => setMenuState('minimized')}
+          onMaximize={() => setMenuState(menuState === 'maximized' ? 'normal' : 'maximized')}
+          onRestore={() => setMenuState('normal')}
+          onClose={handleMenuClose}
+          draggable={false}
+        >
+          <nav className="overlay-nav">
+            {menuLinks.map((item) => (
+              <button
+                key={item.key}
+                className="nav-link"
+                style={{ marginBottom: 12, width: '100%', textAlign: 'left' }}
+                onClick={() => handleOpenWindow(item.key)}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </Window>
+      )}
+      {openWindow && windowStates[openWindow] !== 'minimized' && (
+        <Window
+          title={WINDOW_CONFIG[openWindow].title}
+          windowState={windowStates[openWindow] || 'normal'}
+          onMinimize={() => handleMinimize(openWindow)}
+          onMaximize={() => handleMaximize(openWindow)}
+          onRestore={() => handleMaximize(openWindow)}
+          onClose={() => handleClose(openWindow)}
+          draggable={true}
+        >
+          {(!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
+            React.createElement(WINDOW_CONFIG[openWindow].component, {
+              onBack: () => {
+                setOpenWindow(null);
+                setMenuState('normal');
+              }
+            })
+          ) : (
+            <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
+          )}
+        </Window>
+      )}
     </div>
   );
 }
 
-function LoginWrapper() {
+function LoginWrapper({ onLogin }) {
   const navigate = useNavigate();
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
     if (token && user) {
-      navigate('/home');
+      if (onLogin) onLogin();
+      navigate('/home', { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, onLogin]);
   return (
     <div className="login-container">
       <div className="login-form">
@@ -99,24 +154,6 @@ function LoginWrapper() {
       </div>
     </div>
   );
-}
-
-function ProtectedRoute({ children }) {
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (token && user) {
-    return children;
-  }
-  return <Navigate to="/" replace />;
-}
-
-function AdminRoute({ children }) {
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (token && user && user.role === 'admin') {
-    return children;
-  }
-  return <Navigate to="/" replace />;
 }
 
 export default App;

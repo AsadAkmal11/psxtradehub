@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css'; // Assuming you have some shared styles here
 import BackButton from './components/BackButton';
 
-function CustomerPortfolio() {
+function CustomerPortfolio({ onBack }) {
   const [formData, setFormData] = useState({
     // Customer fields
     fullName: '',
@@ -100,7 +100,7 @@ function CustomerPortfolio() {
 
   return (
     <div className="form-container">
-      <BackButton />
+      <BackButton onBack={onBack} />
       <h2>Customer & Portfolio Management</h2>
       <form>
         {message && <p style={{ color: 'green' }}>{message}</p>}

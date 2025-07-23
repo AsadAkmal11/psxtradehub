@@ -55,48 +55,52 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      {!isLogin && (
-        <div className="signup-extra">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <select value={role} onChange={e => setRole(e.target.value)}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
+    <div className="login-bg">
+      <div className="login-card">
+        <h1 className="login-title">PSX Trade Hub</h1>
+        <div className="login-form">
+          {!isLogin && (
+            <div className="signup-extra">
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <select value={role} onChange={e => setRole(e.target.value)}>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+          )}
+          <div className="email-buttons">
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="login-buttons">
+            {isLogin ? (
+              <button onClick={handleLogin}>Login</button>
+            ) : (
+              <button onClick={handleSignup}>Sign Up</button>
+            )}
+            <button onClick={() => setIsLogin(!isLogin)}>
+              {isLogin ? 'Switch to Sign Up' : 'Switch to Login'}
+            </button>
+          </div>
         </div>
-      )}
-      <div className="email-buttons">
-        <input
-          id="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
       </div>
-<div class="login-buttons">
-      {isLogin ? (
-        <button onClick={handleLogin}>Login</button>
-      ) : (
-        <button onClick={handleSignup}>Sign Up</button>
-      )}
-
-      <button onClick={() => setIsLogin(!isLogin)}>
-        {isLogin ? 'Switch to Sign Up' : 'Switch to Login'}
-      </button>
-     </div>
     </div>
   );
 }

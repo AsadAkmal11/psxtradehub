@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BackButton from './components/BackButton';
 
-function MarketWatch() {
+function MarketWatch({ onBack }) {
   const [stocks, setStocks] = useState([]);
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('symbol');
@@ -54,7 +54,7 @@ function MarketWatch() {
 
   return (
     <div className="marketwatch-container">
-      <BackButton />
+      <BackButton onBack={onBack} />
       <h2>Market Watch</h2>
       {message && <div className="watchlist-message">{message}</div>}
       <input

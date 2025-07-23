@@ -3,7 +3,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import BackButton from './components/BackButton';
 
-function StockUpload() {
+function StockUpload({ onBack }) {
   const [csvFile, setCsvFile] = useState(null);
   const [previewData, setPreviewData] = useState([]);
   const token = localStorage.getItem('token');
@@ -54,7 +54,7 @@ function StockUpload() {
 
   return (
     <div>
-      <BackButton />
+      <BackButton onBack={onBack} />
       <h2>Upload CSV</h2>
       <input type="file" accept=".csv" onChange={handleFileChange} />
       {previewData.length > 0 && (
