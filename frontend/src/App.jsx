@@ -123,28 +123,49 @@ function AppContent() {
           </nav>
         </Window>
       )}
-      {openWindow && windowStates[openWindow] !== 'minimized' && (
-        <Window
-          title={WINDOW_CONFIG[openWindow].title}
-          windowState={windowStates[openWindow] || 'normal'}
-          onMinimize={() => handleMinimize(openWindow)}
-          onMaximize={() => handleMaximize(openWindow)}
-          onRestore={() => handleMaximize(openWindow)}
-          onClose={() => handleClose(openWindow)}
-          draggable={true}
-        >
-          {(!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
-            React.createElement(WINDOW_CONFIG[openWindow].component, {
-              onBack: () => {
-                setOpenWindow(null);
-                setMenuState('normal');
-              }
-            })
-          ) : (
-            <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
-          )}
-        </Window>
-      )}
+      {openWindow && (
+  <Window
+    title={WINDOW_CONFIG[openWindow].title}
+    windowState={windowStates[openWindow] || 'normal'}
+    onMinimize={() => handleMinimize(openWindow)}
+    onMaximize={() => handleMaximize(openWindow)}
+    onRestore={() => handleMaximize(openWindow)}
+    onClose={() => handleClose(openWindow)}
+    draggable={true}
+  >
+    {windowStates[openWindow] !== 'minimized' && (
+      (!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
+        React.createElement(WINDOW_CONFIG[openWindow].component, {
+          onBack: () => {
+            setOpenWindow(null);
+            setMenuState('normal');
+          }
+        })
+      ) : (
+        <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
+      )
+    )}
+  </Window>
+)}
+
+        <div className="taskbar">
+        {Object.entries(windowStates).map(([key, state]) => (
+        state === "minimized" && (
+        <button
+        key={key}
+        className="taskbar-icon"
+        onClick={() => {
+          setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
+          setOpenWindow(key);
+        }}
+      >
+        📄 {WINDOW_CONFIG[key].title}
+      </button>
+    )
+  ))}
+</div>
+
+      
     </div>
   );
 }

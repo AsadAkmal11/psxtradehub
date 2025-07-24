@@ -14,6 +14,7 @@ function Exchange({ onClose, onExchangeSaved }) {
   });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
     axios.get('/api/country').then(res => {
@@ -78,8 +79,12 @@ function Exchange({ onClose, onExchangeSaved }) {
         currency: { name: form.currencyName, code: form.currencyCode },
       });
       setSaving(false);
-      if (onExchangeSaved) onExchangeSaved();
-      if (onClose) onClose();
+      setSuccessMsg('Exchange saved');
+      setTimeout(() => {
+        setSuccessMsg('');
+        if (onExchangeSaved) onExchangeSaved();
+        if (onClose) onClose();
+      }, 1500);
     } catch (err) {
       setSaving(false);
       setErrors({ submit: 'Failed to save exchange.' });
@@ -89,6 +94,7 @@ function Exchange({ onClose, onExchangeSaved }) {
   return (
     <div className="exchange-container">
       <h2>Add Exchange</h2>
+      {successMsg && <div style={{ color: '#0ECB81', marginBottom: 12, fontWeight: 600 }}>{successMsg}</div>}
       <form className="exchange-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem 2rem', maxWidth: 600 }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <input

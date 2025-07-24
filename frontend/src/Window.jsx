@@ -58,7 +58,7 @@ const Window = ({
       : windowState === "minimized"
       ? { width: 320, height: 56, minHeight: 0, maxHeight: 56, top: "2.2rem", left: "2.2rem", position: "absolute" }
       : { left: position.x, top: position.y, position: "absolute" };
-
+      if (windowState === "minimized") return null; 
   return (
     <div
       className={`window-panel ${windowState} ${canDrag ? "draggable-window" : ""}`}

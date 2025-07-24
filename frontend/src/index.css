@@ -6,7 +6,7 @@
   background-color: #181A20;
 }
 
-body,
+ body,
 html,
 .app-background {
   margin: 0;
@@ -19,7 +19,7 @@ body, html {
   overflow-x: hidden;
 }
 
-.app-background {
+/* .app-background {
   background-image: linear-gradient(rgba(24, 26, 32, 0.96), rgba(24, 26, 32, 0.96)), url('https://tse4.mm.bing.net/th/id/OIP.xr1bq14kpUSAAf9jqv_SAAHaDz?pid=Api&P=0&h=220');
   background-size: cover;
   position: relative;
@@ -27,11 +27,7 @@ body, html {
   background-repeat: no-repeat;
   min-height: 100vh;
   width: 100%;
-  /* Removed flex centering to allow absolute positioning for draggable windows */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-}
+}  */
 
 .header {
   margin-top: 2rem;

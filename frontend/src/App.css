@@ -4,8 +4,6 @@
   padding: 2rem;
   text-align: center;
 }
-
-/* Dark Theme Form Styles */
 .form-container {
   background-color: #2d3748;
   padding: 2rem;
@@ -83,7 +81,7 @@
 .logout-btn {
   position: absolute;
   left:92%;
-  top:1px;
+  top:50px;
   font-weight: bold;
   font-size: 1.1rem;
   background-color: #F6465D;
@@ -272,3 +270,38 @@
   text-shadow: 0 4px 24px rgba(0,0,0,0.18);
   text-align: center;
 }
+.taskbar {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  z-index: 9999;
+}
+
+.taskbar-icon {
+  background: rgba(35, 38, 47, 0.98);
+  border: 2px solid #F0B90B55;
+  color: #F0B90B;
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.taskbar-icon:hover {
+  background: #F0B90B;
+  color: #181A20;
+  border-color: #F0B90B;
+}
+
