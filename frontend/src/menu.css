@@ -43,7 +43,7 @@
   to { opacity: 1; }
 }
 
-/* Compact (half-screen) mode */
+
 .overlay-panel.compact, .themed-overlay.compact {
   width: 480px;
   max-width: 96vw;
@@ -59,7 +59,7 @@
   background: rgba(24, 26, 32, 0.98);
 }
 
-/* Minimized: only header bar, top-left */
+
 .overlay-panel.minimized, .themed-overlay.minimized {
   width: 320px;
   height: 56px;
@@ -75,7 +75,7 @@
   box-shadow: 0 2px 8px 0 rgba(240, 185, 11, 0.12);
 }
 
-/* Maximized: full screen */
+
 .overlay-panel.maximized, .themed-overlay.maximized {
   width: 100vw;
   height: 100vh;

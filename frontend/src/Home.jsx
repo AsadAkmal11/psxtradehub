@@ -1,27 +1,33 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import OrdersList from './OrdersList';
+import { FaListAlt } from 'react-icons/fa';
 
 function Home() {
   const user = JSON.parse(localStorage.getItem('user'));
+  const [activeTab, setActiveTab] = useState('orderslist');
+
   return (
     <div className="home-container">
-      <h2>Welcome, {user?.username || 'User'}!</h2>
-      {/* <nav className="main-nav">
-        { user && user.role === 'admin' && (
-          <NavLink to="/upload" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            Upload File
-          </NavLink>
+      <h2 style={{ marginBottom: 24 }}>Welcome, {user?.username || 'User'}!</h2>
+      <nav className="home-navbar">
+        <button
+          className={`home-tab${activeTab === 'orderslist' ? ' active' : ''}`}
+          onClick={() => setActiveTab('orderslist')}
+        >
+          <FaListAlt style={{ marginRight: 8, verticalAlign: 'middle' }} />
+          Orders List
+        </button>
+      </nav>
+      <div className="home-tab-content fade-in">
+        {activeTab === 'orderslist' && (
+          <div style={{ marginTop: 24 }}>
+            <OrdersList showBackButton={false} />
+          </div>
         )}
-        <NavLink to="/watchlist" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          Watchlist
-        </NavLink>
-        <NavLink to="/customer-portfolio" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-          Customer/Portfolio
-        </NavLink>
-      </nav> 
-      <hr/>
-       <p style={{marginTop: '2rem'}}></p>*/}
-    </div> 
+      </div>
+      <hr />
+      <p style={{ marginTop: '2rem' }}></p>
+    </div>
   );
 }
 

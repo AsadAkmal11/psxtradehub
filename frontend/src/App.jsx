@@ -8,10 +8,12 @@ import Country from './Country';
 import Currency from './Currency';
 import Customers from './Customers';
 import Exchange from './Exchange';
+import Order from './Order';
+import OrdersList from './OrdersList';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaUpload, FaChartLine, FaShoppingCart, FaListAlt, FaUsers, FaGlobe, FaMoneyBillWave, FaUserFriends, FaExchangeAlt } from 'react-icons/fa';
 
 const WINDOW_CONFIG = {
   upload: { title: 'Stock Upload', component: StockUpload, admin: true },
@@ -21,6 +23,8 @@ const WINDOW_CONFIG = {
   currency: { title: 'Currency', component: Currency },
   customers: { title: 'Customers Information', component: Customers },
   exchange: { title: 'Exchange', component: Exchange },
+  order: { title: 'Buy/Sell Order', component: Order },
+  orderslist: { title: 'Orders List', component: OrdersList },
 };
 
 function App() {
@@ -62,13 +66,15 @@ function AppContent() {
   };
 
   const menuLinks = [
-    ...(user && user.role === 'admin' ? [{ key: 'upload', label: 'Stock Upload' }] : []),
-    { key: 'marketwatch', label: 'Market Watch' },
-    { key: 'customer-portfolio', label: 'Customer/Portfolio' },
-    { key: 'country', label: 'Country' },
-    { key: 'currency', label: 'Currency' },
-    { key: 'customers', label: 'Customers Information' },
-    { key: 'exchange', label: 'Exchange' },
+    ...(user && user.role === 'admin' ? [{ key: 'upload', label: 'Stock Upload', icon: FaUpload }] : []),
+    { key: 'marketwatch', label: 'Market Watch', icon: FaChartLine },
+    { key: 'order', label: 'Buy/Sell Order', icon: FaShoppingCart },
+    { key: 'orderslist', label: 'Orders List', icon: FaListAlt },
+    { key: 'customer-portfolio', label: 'Customer/Portfolio', icon: FaUsers },
+    { key: 'country', label: 'Country', icon: FaGlobe },
+    { key: 'currency', label: 'Currency', icon: FaMoneyBillWave },
+    { key: 'customers', label: 'Customers Information', icon: FaUserFriends },
+    { key: 'exchange', label: 'Exchange', icon: FaExchangeAlt },
   ];
 
   const handleLogout = () => {
@@ -97,7 +103,7 @@ function AppContent() {
         <hr />
       </div>
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <Home />
+        <Home onOpenWindow={handleOpenWindow} />
       </div>
       {menuState !== 'minimized' && (
         <Window
@@ -108,45 +114,100 @@ function AppContent() {
           onRestore={() => setMenuState('normal')}
           onClose={handleMenuClose}
           draggable={false}
+          style={{
+            width: menuState === 'maximized' ? '100vw' : '800px',
+            minWidth: '600px',
+            maxWidth: '90vw'
+          }}
         >
-          <nav className="overlay-nav">
-            {menuLinks.map((item) => (
-              <button
-                key={item.key}
-                className="nav-link"
-                style={{ marginBottom: 12, width: '100%', textAlign: 'left' }}
-                onClick={() => handleOpenWindow(item.key)}
-              >
-                {item.label}
-              </button>
-            ))}
+          <nav className="overlay-nav" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '16px',
+            padding: '24px',
+            maxWidth: '100%',
+            '@media (max-width: 768px)': {
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: '12px',
+              padding: '16px'
+            }
+          }}>
+            {menuLinks.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.key}
+                  className="nav-link"
+                  style={{ 
+                    padding: '16px 20px',
+                    textAlign: 'center',
+                    borderRadius: '12px',
+                    border: '2px solid #F0B90B',
+                    backgroundColor: 'rgba(35, 38, 47, 0.98)',
+                    color: '#F0B90B',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    minHeight: '80px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textDecoration: 'none',
+                    gap: '8px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#F0B90B';
+                    e.target.style.color = '#181A20';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 4px 12px rgba(240, 185, 11, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgba(35, 38, 47, 0.98)';
+                    e.target.style.color = '#F0B90B';
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                  onClick={() => handleOpenWindow(item.key)}
+                >
+                  {IconComponent && <IconComponent size={24} />}
+                  <span style={{ fontSize: '0.9rem' }}>{item.label}</span>
+                </button>
+              );
+            })}
           </nav>
         </Window>
       )}
       {openWindow && (
-  <Window
-    title={WINDOW_CONFIG[openWindow].title}
-    windowState={windowStates[openWindow] || 'normal'}
-    onMinimize={() => handleMinimize(openWindow)}
-    onMaximize={() => handleMaximize(openWindow)}
-    onRestore={() => handleMaximize(openWindow)}
-    onClose={() => handleClose(openWindow)}
-    draggable={true}
-  >
-    {windowStates[openWindow] !== 'minimized' && (
-      (!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
-        React.createElement(WINDOW_CONFIG[openWindow].component, {
-          onBack: () => {
-            setOpenWindow(null);
-            setMenuState('normal');
-          }
-        })
-      ) : (
-        <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
-      )
-    )}
-  </Window>
-)}
+        <Window
+          title={WINDOW_CONFIG[openWindow].title}
+          windowState={windowStates[openWindow] || 'normal'}
+          onMinimize={() => handleMinimize(openWindow)}
+          onMaximize={() => handleMaximize(openWindow)}
+          onRestore={() => handleMaximize(openWindow)}
+          onClose={() => handleClose(openWindow)}
+          draggable={true}
+        >
+          <div
+            style={{
+              display: windowStates[openWindow] === 'minimized' ? 'none' : 'block',
+              height: '100%',
+            }}
+          >
+            {(!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
+              React.createElement(WINDOW_CONFIG[openWindow].component, {
+                onBack: () => {
+                  setOpenWindow(null);
+                  setMenuState('normal');
+                }
+              })
+            ) : (
+              <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
+            )}
+          </div>
+        </Window>
+      )}
 
         <div className="taskbar">
         {Object.entries(windowStates).map(([key, state]) => (

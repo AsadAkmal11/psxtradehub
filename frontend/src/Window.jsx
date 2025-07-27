@@ -48,21 +48,24 @@ const Window = ({
   onClose,
   draggable = true,
   initialPosition = { x: 120, y: 120 },
+  style = {},
 }) => {
   const canDrag = draggable && windowState === "normal";
   const { position, onPointerDown } = useDraggable(initialPosition, canDrag);
 
-  const style =
+  const baseStyle =
     windowState === "maximized"
       ? { top: 0, left: 0, width: "100vw", height: "100vh", position: "fixed" }
       : windowState === "minimized"
       ? { width: 320, height: 56, minHeight: 0, maxHeight: 56, top: "2.2rem", left: "2.2rem", position: "absolute" }
       : { left: position.x, top: position.y, position: "absolute" };
+      
+  const combinedStyle = { ...baseStyle, ...style };
       if (windowState === "minimized") return null; 
   return (
     <div
       className={`window-panel ${windowState} ${canDrag ? "draggable-window" : ""}`}
-      style={style}
+      style={combinedStyle}
     >
       <div
         className="window-header"

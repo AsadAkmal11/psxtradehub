@@ -30,7 +30,10 @@ app.use('/api', currencyRoutes);
 const exchangeRoutes = require('./routes/exchange.routes');
 app.use('/api', exchangeRoutes);
 
-// Test route 
+const orderRoutes = require('./routes/order.routes');
+app.use('/api', orderRoutes);
+
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });
@@ -44,6 +47,7 @@ require('./models/watchlist.model');
 require('./models/country.model');
 require('./models/currency.model');
 require('./models/exchange.model');
+require('./models/tradeorder.model');
 
 db.sync()
   .then(() => {

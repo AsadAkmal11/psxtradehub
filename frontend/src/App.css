@@ -305,3 +305,103 @@
   border-color: #F0B90B;
 }
 
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #23272f;
+  color: #f7fafc;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.97rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.styled-table th, .styled-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.styled-table th {
+  background: #2d3748;
+  color: #f0b90b;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-weight: 700;
+  border-bottom: 2px solid #4a5568;
+}
+.styled-table tr.row-even {
+  background-color: #23272f;
+}
+.styled-table tr.row-odd {
+  background-color: #262b36;
+}
+.styled-table tr:hover {
+  background-color: #31363f;
+}
+.styled-table td {
+  border-bottom: 1px solid #353b48;
+}
+.styled-table td:last-child, .styled-table th:last-child {
+  border-right: none;
+}
+
+.home-navbar {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid #4a5568;
+  background: #23272f;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.home-tab {
+  background: none;
+  border: none;
+  color: #f7fafc;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem 0.5rem 1rem;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+.home-tab.active {
+  background: #2d3748;
+  color: #f0b90b;
+  font-weight: bold;
+  border-bottom: 2px solid #f0b90b;
+}
+.home-tab:not(.active):hover {
+  background: #31363f;
+  color: #f0b90b;
+}
+.home-tab-content {
+  min-height: 200px;
+  background: #23272f;
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem 1rem 1rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 1.5rem;
+  animation: fadeInTab 0.4s;
+}
+@keyframes fadeInTab {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 600px) {
+  .home-navbar {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 0;
+  }
+  .home-tab {
+    width: 100%;
+    border-radius: 8px 8px 8px 8px;
+    justify-content: flex-start;
+  }
+  .home-tab-content {
+    padding: 1rem 0.5rem;
+  }
+}
+
