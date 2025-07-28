@@ -28,10 +28,13 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #a0aec0;
+  color: #a0aec0; 
   font-size: 0.875rem;
 }
-
+.hamburger-icon-left{
+  /* margin-left: 1rem; */
+  background-color: #2d3748;  
+}
 .form-group input {
   width: 100%;
   padding: 0.75rem;

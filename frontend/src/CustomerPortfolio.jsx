@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css'; // Assuming you have some shared styles here
 import BackButton from './components/BackButton';
+import { commonStyles, theme } from './components/ThemeProvider';
 
 function CustomerPortfolio({ onBack }) {
   const [formData, setFormData] = useState({
@@ -99,15 +99,15 @@ function CustomerPortfolio({ onBack }) {
   };
 
   return (
-    <div className="form-container">
+    <div style={commonStyles.container}>
       <BackButton onBack={onBack} />
-      <h2>Customer & Portfolio Management</h2>
+      <h2 style={commonStyles.header}>Customer & Portfolio Management</h2>
       <form>
-        {message && <p style={{ color: 'green' }}>{message}</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <h3>Customer Details</h3>
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name</label>
+        {message && <div style={commonStyles.message.success}>{message}</div>}
+        {error && <div style={commonStyles.message.error}>{error}</div>}
+        <h3 style={{ color: theme.colors.primary, fontSize: '1.2rem', marginBottom: theme.spacing.lg, borderBottom: `2px solid ${theme.colors.border}`, paddingBottom: theme.spacing.sm }}>Customer Details</h3>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="fullName" style={commonStyles.label}>Full Name</label>
           <input
             type="text"
             id="fullName"
@@ -115,10 +115,11 @@ function CustomerPortfolio({ onBack }) {
             value={formData.fullName}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="email" style={commonStyles.label}>Email</label>
           <input
             type="email"
             id="email"
@@ -126,20 +127,22 @@ function CustomerPortfolio({ onBack }) {
             value={formData.email}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone Number (Optional)</label>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="phone" style={commonStyles.label}>Phone Number (Optional)</label>
           <input
             type="tel"
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            style={commonStyles.input}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="cnic">CNIC or ID Number</label>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="cnic" style={commonStyles.label}>CNIC or ID Number</label>
           <input
             type="text"
             id="cnic"
@@ -147,10 +150,11 @@ function CustomerPortfolio({ onBack }) {
             value={formData.cnic}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="customerNo">Customer No</label>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="customerNo" style={commonStyles.label}>Customer No</label>
           <input
             type="text"
             id="customerNo"
@@ -158,13 +162,14 @@ function CustomerPortfolio({ onBack }) {
             value={formData.customerNo}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <button type="button" className="submit-btn" onClick={handleSaveCustomer} style={{marginBottom: '1rem'}}>Save Customer</button>
+        <button type="button" style={{...commonStyles.button.primary, marginBottom: theme.spacing.lg}} onClick={handleSaveCustomer}>Save Customer</button>
 
-        <h3>Portfolio Details</h3>
-        <div className="form-group">
-          <label htmlFor="portfolioName">Portfolio Name</label>
+        <h3 style={{ color: theme.colors.primary, fontSize: '1.2rem', marginBottom: theme.spacing.lg, borderBottom: `2px solid ${theme.colors.border}`, paddingBottom: theme.spacing.sm }}>Portfolio Details</h3>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="portfolioName" style={commonStyles.label}>Portfolio Name</label>
           <input
             type="text"
             id="portfolioName"
@@ -172,10 +177,11 @@ function CustomerPortfolio({ onBack }) {
             value={formData.portfolioName}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="initialCapital">Initial Capital</label>
+        <div style={commonStyles.formGroup}>
+          <label htmlFor="initialCapital" style={commonStyles.label}>Initial Capital</label>
           <input
             type="number"
             id="initialCapital"
@@ -183,9 +189,10 @@ function CustomerPortfolio({ onBack }) {
             value={formData.initialCapital}
             onChange={handleChange}
             required
+            style={commonStyles.input}
           />
         </div>
-        <button type="button" className="submit-btn" onClick={handleSavePortfolio}>Save Portfolio</button>
+        <button type="button" style={commonStyles.button.primary} onClick={handleSavePortfolio}>Save Portfolio</button>
       </form>
     </div>
   );

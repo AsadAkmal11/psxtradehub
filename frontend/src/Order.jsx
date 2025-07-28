@@ -149,18 +149,36 @@ export default function Order({ onBack }) {
           {errors.portfolioId && <div className="error">{errors.portfolioId}</div>}
         </div>
         <div className="form-group">
-          <label>Broker:</label>
-          <select name="broker" value={form.broker} onChange={handleChange}>
+          <label style={{ color: theme.text }}>Broker:</label>
+          <select 
+            name="broker" 
+            value={form.broker} 
+            onChange={handleChange}
+            style={{
+              border: `2px solid ${theme.border}`,
+              backgroundColor: 'white',
+              color: theme.text,
+              transition: 'border-color 0.3s ease'
+            }}
+          >
             <option value="">Select Broker</option>
             {brokers.map(b => (
               <option key={b} value={b}>{b}</option>
             ))}
           </select>
-          {errors.broker && <div className="error">{errors.broker}</div>}
+          {errors.broker && <div className="error" style={{ color: theme.primary }}>{errors.broker}</div>}
         </div>
         <div className="form-group">
           <label>Trade Date:</label>
-          <input type="date" name="tradeDate" value={form.tradeDate} onChange={handleChange} />
+          <input type="DATE" name="tradeDate" value={form.tradeDate} onChange={handleChange}
+            style={{
+              border: `2px solid ${theme.border}`,
+              backgroundColor: theme.secondary,
+              color: theme.text,
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease'
+            }}
+           />
           {errors.tradeDate && <div className="error">{errors.tradeDate}</div>}
         </div>
         <div className="form-group">
@@ -192,7 +210,7 @@ export default function Order({ onBack }) {
             placeholder="e.g. Limit, Market"
             style={{
               border: `1px solid ${theme.border}`,
-              backgroundColor: 'white',
+              backgroundColor: 'black',
               transition: 'border-color 0.3s ease'
             }}
           />
@@ -207,7 +225,7 @@ export default function Order({ onBack }) {
             onChange={handleChange}
             style={{
               border: `1px solid ${theme.border}`,
-              backgroundColor: 'white',
+              backgroundColor: 'black',
               transition: 'border-color 0.3s ease'
             }}
           />
@@ -223,7 +241,7 @@ export default function Order({ onBack }) {
             onChange={handleChange}
             style={{
               border: `1px solid ${theme.border}`,
-              backgroundColor: 'white',
+              backgroundColor: 'black',
               transition: 'border-color 0.3s ease'
             }}
           />

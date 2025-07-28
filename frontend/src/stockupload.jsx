@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import BackButton from './components/BackButton';
+import { commonStyles, theme } from './components/ThemeProvider';
 
 function StockUpload({ onBack }) {
   const [csvFile, setCsvFile] = useState(null);
@@ -53,21 +54,34 @@ function StockUpload({ onBack }) {
   };
 
   return (
-    <div>
+    <div style={commonStyles.container}>
       <BackButton onBack={onBack} />
-      <h2>Upload CSV</h2>
-      <input type="file" accept=".csv" onChange={handleFileChange} />
+      <h2 style={commonStyles.header}>Stock Upload</h2>
+      <div style={{ marginBottom: theme.spacing.lg }}>
+        <input 
+          type="file" 
+          accept=".csv" 
+          onChange={handleFileChange}
+          style={{
+            ...commonStyles.input,
+            padding: theme.spacing.md,
+            backgroundColor: theme.colors.secondary,
+            border: `2px dashed ${theme.colors.border}`,
+            cursor: 'pointer'
+          }}
+        />
+      </div>
       {previewData.length > 0 && (
-        <div className="preview-table-container">
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-            <button onClick={handleSave}>Save to Database</button>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: theme.spacing.lg }}>
+            <button onClick={handleSave} style={commonStyles.button.primary}>Save to Database</button>
           </div>
-          <h3>Preview</h3>
-          <table className="modern-table">
+          <h3 style={{ color: theme.colors.primary, fontSize: '1.2rem', marginBottom: theme.spacing.lg, borderBottom: `2px solid ${theme.colors.border}`, paddingBottom: theme.spacing.sm }}>Preview</h3>
+          <table style={commonStyles.table}>
             <thead>
               <tr>
                 {Object.keys(previewData[0]).map(key => (
-                  <th key={key}>{key}</th>
+                  <th key={key} style={commonStyles.tableHeader}>{key}</th>
                 ))}
               </tr>
             </thead>
@@ -80,9 +94,10 @@ function StockUpload({ onBack }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
+                    style={commonStyles.tableRow}
                   >
                     {Object.values(row).map((val, i) => (
-                      <td key={i}>{val}</td>
+                      <td key={i} style={commonStyles.tableCell}>{val}</td>
                     ))}
                   </motion.tr>
                 ))}

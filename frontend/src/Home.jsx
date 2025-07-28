@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import OrdersList from './OrdersList';
-import { FaListAlt } from 'react-icons/fa';
+import Customers from './Customers';
+import { FaListAlt, FaUserFriends } from 'react-icons/fa';
 
 function Home() {
   const user = JSON.parse(localStorage.getItem('user'));
-  const [activeTab, setActiveTab] = useState('orderslist');
+  const [activeTab, setActiveTab] = useState('customers'); // only one tab state
 
   return (
     <div className="home-container">
       <h2 style={{ marginBottom: 24 }}>Welcome, {user?.username || 'User'}!</h2>
       <nav className="home-navbar">
+        <button
+          className={`home-tab${activeTab === 'customers' ? ' active' : ''}`}
+          onClick={() => setActiveTab('customers')}
+        >
+          <FaUserFriends style={{ marginRight: 8, verticalAlign: 'middle' }} />
+          Customers
+        </button>
         <button
           className={`home-tab${activeTab === 'orderslist' ? ' active' : ''}`}
           onClick={() => setActiveTab('orderslist')}
@@ -18,17 +26,13 @@ function Home() {
           Orders List
         </button>
       </nav>
-      <div className="home-tab-content fade-in">
-        {activeTab === 'orderslist' && (
-          <div style={{ marginTop: 24 }}>
-            <OrdersList showBackButton={false} />
-          </div>
-        )}
+      <div className="home-tab-content fade-in" style={{ marginTop: 24 }}>
+        {activeTab === 'customers' && <Customers />}
+        {activeTab === 'orderslist' && <OrdersList showBackButton={false} />}
       </div>
       <hr />
-      <p style={{ marginTop: '2rem' }}></p>
     </div>
   );
 }
 
-export default Home; 
+export default Home;

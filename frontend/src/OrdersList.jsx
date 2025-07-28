@@ -30,8 +30,8 @@ export default function OrdersList({ onBack, showBackButton = true }) {
     fetchOrders();
   }, [fetchOrders]);
 
-  // Set up interval for auto-refresh every 5 seconds
-  useInterval(fetchOrders, 5000);
+  // Set up interval for auto-refresh every 2 seconds
+  useInterval(fetchOrders, 2000);
 
   return (
     <div className="form-container" style={{ maxWidth: 1100 }}>

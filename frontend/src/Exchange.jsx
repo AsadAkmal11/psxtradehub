@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { commonStyles, theme } from './components/ThemeProvider';
 
 function Exchange({ onClose, onExchangeSaved }) {
   const [countries, setCountries] = useState([]);
@@ -92,10 +93,10 @@ function Exchange({ onClose, onExchangeSaved }) {
   };
 
   return (
-    <div className="exchange-container">
-      <h2>Add Exchange</h2>
-      {successMsg && <div style={{ color: '#0ECB81', marginBottom: 12, fontWeight: 600 }}>{successMsg}</div>}
-      <form className="exchange-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem 2rem', maxWidth: 600 }}>
+    <div style={commonStyles.container}>
+      <h2 style={commonStyles.header}>Add Exchange</h2>
+      {successMsg && <div style={commonStyles.message.success}>{successMsg}</div>}
+      <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: theme.spacing.lg, maxWidth: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <input
             type="text"
@@ -103,33 +104,33 @@ function Exchange({ onClose, onExchangeSaved }) {
             placeholder="Enter exchange name (e.g., Pakistan Stock Exchange)"
             value={form.name}
             onChange={handleChange}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.input}
           />
-          {errors.name && <span className="error-text">{errors.name}</span>}
+          {errors.name && <span style={{ color: theme.colors.error, fontSize: '0.8rem', marginTop: theme.spacing.xs }}>{errors.name}</span>}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <select
             name="countryName"
             value={form.countryName}
             onChange={e => handleCountryChange('countryName', e.target.value)}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.select}
           >
             <option value="">Select country</option>
             {countries.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
           </select>
-          {errors.countryName && <span className="error-text">{errors.countryName}</span>}
+          {errors.countryName && <span style={{ color: theme.colors.error, fontSize: '0.8rem', marginTop: theme.spacing.xs }}>{errors.countryName}</span>}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <select
             name="countryCode"
             value={form.countryCode}
             onChange={e => handleCountryChange('countryCode', e.target.value)}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.select}
           >
             <option value="">Select country code</option>
             {countries.map(c => <option key={c.id} value={c.code}>{c.code}</option>)}
           </select>
-          {errors.countryCode && <span className="error-text">{errors.countryCode}</span>}
+          {errors.countryCode && <span style={{ color: theme.colors.error, fontSize: '0.8rem', marginTop: theme.spacing.xs }}>{errors.countryCode}</span>}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <input
@@ -138,7 +139,7 @@ function Exchange({ onClose, onExchangeSaved }) {
             placeholder="Enter timezone (e.g., Asia/Karachi)"
             value={form.timezone}
             onChange={handleChange}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.input}
           />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -146,30 +147,30 @@ function Exchange({ onClose, onExchangeSaved }) {
             name="currencyName"
             value={form.currencyName}
             onChange={e => handleCurrencyChange('currencyName', e.target.value)}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.select}
           >
             <option value="">Select currency name</option>
             {currencies.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
           </select>
-          {errors.currencyName && <span className="error-text">{errors.currencyName}</span>}
+          {errors.currencyName && <span style={{ color: theme.colors.error, fontSize: '0.8rem', marginTop: theme.spacing.xs }}>{errors.currencyName}</span>}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <select
             name="currencyCode"
             value={form.currencyCode}
             onChange={e => handleCurrencyChange('currencyCode', e.target.value)}
-            style={{ marginBottom: 4 }}
+            style={commonStyles.select}
           >
             <option value="">Select currency code</option>
             {currencies.map(c => <option key={c.id} value={c.code}>{c.code}</option>)}
           </select>
-          {errors.currencyCode && <span className="error-text">{errors.currencyCode}</span>}
+          {errors.currencyCode && <span style={{ color: theme.colors.error, fontSize: '0.8rem', marginTop: theme.spacing.xs }}>{errors.currencyCode}</span>}
         </div>
-        <div style={{ gridColumn: '1 / span 2', textAlign: 'center', marginTop: 12 }}>
-          <button type="submit" disabled={saving} style={{ padding: '0.7em 2em', fontWeight: 700 }}>
+        <div style={{ gridColumn: '1 / span 2', textAlign: 'center', marginTop: theme.spacing.lg }}>
+          <button type="submit" disabled={saving} style={commonStyles.button.primary}>
             {saving ? 'Saving...' : 'Save / Add Exchange'}
           </button>
-          {errors.submit && <div className="error-text" style={{ marginTop: 8 }}>{errors.submit}</div>}
+          {errors.submit && <div style={{ color: theme.colors.error, fontSize: '0.9rem', marginTop: theme.spacing.md }}>{errors.submit}</div>}
         </div>
       </form>
     </div>

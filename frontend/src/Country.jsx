@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { commonStyles, theme } from './components/ThemeProvider';
 
 function Country() {
   const [countries, setCountries] = useState([]);
@@ -60,9 +61,9 @@ function Country() {
   };
 
   return (
-    <div className="country-container">
-      <h2>Country Management</h2>
-      <form onSubmit={handleSubmit} className="country-form">
+    <div style={commonStyles.container}>
+      <h2 style={commonStyles.header}>Country Management</h2>
+      <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: theme.spacing.md, marginBottom: theme.spacing.lg }}>
         <input
           type="text"
           name="name"
@@ -70,6 +71,7 @@ function Country() {
           value={form.name}
           onChange={handleChange}
           required
+          style={commonStyles.input}
         />
         <input
           type="text"
@@ -78,29 +80,30 @@ function Country() {
           value={form.code}
           onChange={handleChange}
           required
+          style={commonStyles.input}
         />
-        <button type="submit">{editingId ? 'Update' : 'Add'} Country</button>
+        <button type="submit" style={commonStyles.button.primary}>{editingId ? 'Update' : 'Add'} Country</button>
         {editingId && (
-          <button type="button" onClick={() => { setEditingId(null); setForm({ name: '', code: '' }); }}>Cancel</button>
+          <button type="button" style={commonStyles.button.secondary} onClick={() => { setEditingId(null); setForm({ name: '', code: '' }); }}>Cancel</button>
         )}
       </form>
-      {message && <div style={{ color: '#F0B90B', margin: '1rem 0' }}>{message}</div>}
-      <table className="modern-table" style={{ marginTop: 24 }}>
+      {message && <div style={commonStyles.message.warning}>{message}</div>}
+      <table style={commonStyles.table}>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Actions</th>
+            <th style={commonStyles.tableHeader}>Name</th>
+            <th style={commonStyles.tableHeader}>Code</th>
+            <th style={commonStyles.tableHeader}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {(countries || []).map((country) => (
-            <tr key={country.id}>
-              <td>{country.name}</td>
-              <td>{country.code}</td>
-              <td>
-                <button onClick={() => handleEdit(country)} style={{ marginRight: 8 }}>Edit</button>
-                <button onClick={() => handleDelete(country.id)} style={{ color: 'red' }}>Delete</button>
+            <tr key={country.id} style={commonStyles.tableRow}>
+              <td style={commonStyles.tableCell}>{country.name}</td>
+              <td style={commonStyles.tableCell}>{country.code}</td>
+              <td style={commonStyles.tableCell}>
+                <button onClick={() => handleEdit(country)} style={{...commonStyles.button.secondary, marginRight: theme.spacing.sm, padding: `${theme.spacing.sm} ${theme.spacing.md}`}}>Edit</button>
+                <button onClick={() => handleDelete(country.id)} style={commonStyles.button.danger}>Delete</button>
               </td>
             </tr>
           ))}

@@ -26,9 +26,16 @@ exports.createOrder = async (req, res) => {
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await TradeOrder.findAll();
+    const today = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+    const orders = await TradeOrder.findAll({
+      where: {
+        tradeDate: today
+      }
+    });
+
     res.json({ orders });
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch orders', error: error.message });
   }
-}; 
+};

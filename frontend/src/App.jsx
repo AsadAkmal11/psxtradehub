@@ -89,7 +89,7 @@ function AppContent() {
     <div className="app-background">
       <div className="header">
         <div className="header-row">
-          <button className="hamburger-icon left" onClick={handleMenuOpen}>
+          <button className="hamburger-icon-left" onClick={handleMenuOpen}>
             <FaBars size={28} color="#F0B90B" />
           </button>
           <h1 className="header-title">PSX Trade Hub</h1>
