@@ -17,5 +17,6 @@ router.get('/portfolios', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch portfolios', error: error.message });
   }
 });
+router.get('/customerPortfolio/:customerNo', customerController.getCustomerPortfolio);
 
 module.exports = router; 

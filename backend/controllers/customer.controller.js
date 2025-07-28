@@ -1,6 +1,9 @@
 const Customer = require('../models/customer.model');
 const Portfolio = require('../models/portfolio.model');
 const sequelize = require('../config/db');
+const { TradeOrder } = require('../models/tradeorder.model');
+const { Stock } = require('../models/stock.model');
+const { Op } = require('sequelize');
 
 exports.createCustomerAndPortfolio = async (req, res) => {
   const {
@@ -67,9 +70,51 @@ exports.createCustomer = async (req, res) => {
   }
 };
 
+exports.getCustomerPortfolio = async (req, res) => {
+    const{customerNo} = req.params;
+    try{
+      const TradeData = await TradeOrder.findAll({where:
+        {customerNo,
+          
+        },
+      attributes:[
+        'symbol', [sequelize.fn('sum', sequelize.col('quantity')), 'totalQuantity'], [sequelize.fn('sum', sequelize.col('price')), 'totalprice']
+      ],
+    group:['symbol'],
+    raw:true
+  });
+  const result=[];
+  for(let i=0; i<TradeData.length; i++){
+    const {symbol, totalQuantity, totalprice} = TradeData[i];
+    const avgprice= totalprice/totalQuantity;
+    const stock= await Stock.findOne({where:{symbol}});
+    const currentPrice = stock ? stock.currentPrice : 0;
+    const marketValue = totalQuantity * currentPrice;
+    const profitLoss = (currentPrice - avgprice)* totalQuantity;
+    result.push({symbol, totalQuantity, avgprice, currentPrice, marketValue, profitLoss});
+  }
+    const totalInvested = result.reduce((acc, r) => acc + r.avgprice * r.quantity, 0);
+    const totalMarketValue = result.reduce((acc, r) => acc + r.marketValue, 0);
+    const totalProfitLoss = totalMarketValue - totalInvested;
+
+    res.status(200).json({
+      portfolio: result,
+      totals: {
+        totalInvested: parseFloat(totalInvested.toFixed(2)),
+        totalMarketValue: parseFloat(totalMarketValue.toFixed(2)),
+        totalProfitLoss: parseFloat(totalProfitLoss.toFixed(2))
+      }
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch portfolio', error: error.message });
+  }
+};
 // Get all customers
 exports.getAllCustomers = async (req, res) => {
-  try {
+ 
+  try { 
     const customers = await Customer.findAll();
     res.status(200).json({ customers });
   } catch (error) {
