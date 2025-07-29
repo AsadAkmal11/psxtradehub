@@ -14,6 +14,7 @@ import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
 import { FaBars, FaUpload, FaChartLine, FaShoppingCart, FaListAlt, FaUsers, FaGlobe, FaMoneyBillWave, FaUserFriends, FaExchangeAlt } from 'react-icons/fa';
+import GeminiChat from "./gemini.jsx";
 
 const WINDOW_CONFIG = {
   upload: { title: 'Stock Upload', component: StockUpload, admin: true },
@@ -29,9 +30,12 @@ const WINDOW_CONFIG = {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <div>
+      <GeminiChat />
+      <Router>
+        <AppContent />
+      </Router>
+    </div>
   );
 }
 

@@ -33,6 +33,9 @@ app.use('/api', exchangeRoutes);
 const orderRoutes = require('./routes/order.routes');
 app.use('/api', orderRoutes);
 
+const tradeChatRoutes = require('./routes/tradechat.routes');
+app.use('/api', tradeChatRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('API is running');
