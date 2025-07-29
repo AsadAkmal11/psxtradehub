@@ -42,17 +42,17 @@ exports.getAllOrders = async (req, res) => {
           whereClause.tradeDate = getDateString(today);
           break;
           
-        case 'yesterday':
-          const yesterday = new Date(today);
-          yesterday.setDate(today.getDate() - 1);
-          whereClause.tradeDate = getDateString(yesterday);
-          break;
+        // case 'yesterday':
+        //   const yesterday = new Date(today);
+        //   yesterday.setDate(today.getDate() - 1);
+        //   whereClause.tradeDate = getDateString(yesterday);
+        //   break;
           
-        case 'tomorrow':
-          const tomorrow = new Date(today);
-          tomorrow.setDate(today.getDate() + 1);
-          whereClause.tradeDate = getDateString(tomorrow);
-          break;
+        // case 'tomorrow':
+        //   const tomorrow = new Date(today);
+        //   tomorrow.setDate(today.getDate() + 1);
+        //   whereClause.tradeDate = getDateString(tomorrow);
+        //   break;
           
         case 'specific':
           if (date) {
@@ -67,9 +67,9 @@ exports.getAllOrders = async (req, res) => {
           }
           break;
           
-        case 'all':
+        // case 'all':
           // No where clause - fetch all orders
-          break;
+          // break;
           
         default:
           // Default to today if invalid filter
