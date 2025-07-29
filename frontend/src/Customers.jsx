@@ -101,6 +101,132 @@ function Customers() {
     return () => window.removeEventListener('click', handleClick);
   }, [contextMenu]);
 
+  // Enhanced modal styles
+  const modalStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      backdropFilter: 'blur(4px)',
+      zIndex: 10000,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      boxSizing: 'border-box'
+    },
+    modal: {
+      background: theme.colors.surface,
+      borderRadius: theme.borderRadius.lg,
+      padding: '32px',
+      width: '100%',
+      maxWidth: '500px',
+      maxHeight: '90vh',
+      overflowY: 'auto',
+      boxShadow: theme.shadows.lg,
+      border: `2px solid ${theme.colors.border}`,
+      position: 'relative',
+      animation: 'modalSlideIn 0.3s ease-out'
+    },
+    header: {
+      color: theme.colors.primary,
+      marginBottom: '24px',
+      fontSize: '1.5rem',
+      fontWeight: '700',
+      textAlign: 'center',
+      borderBottom: `2px solid ${theme.colors.border}`,
+      paddingBottom: '16px'
+    },
+    formGroup: {
+      marginBottom: '20px'
+    },
+    label: {
+      display: 'block',
+      color: theme.colors.text,
+      fontSize: '0.95rem',
+      fontWeight: '600',
+      marginBottom: '8px',
+      letterSpacing: '0.5px'
+    },
+    input: {
+      width: '100%',
+      padding: '12px 16px',
+      backgroundColor: theme.colors.secondary,
+      border: `1px solid ${theme.colors.border}`,
+      borderRadius: theme.borderRadius.md,
+      color: theme.colors.text,
+      fontSize: '1rem',
+      transition: theme.transitions.normal,
+      outline: 'none',
+      boxSizing: 'border-box',
+      '&:focus': {
+        borderColor: theme.colors.primary,
+        boxShadow: `0 0 0 3px ${theme.colors.primary}33`
+      },
+      '&:hover': {
+        borderColor: theme.colors.borderHover
+      }
+    },
+    buttonGroup: {
+      display: 'flex',
+      gap: '16px',
+      marginTop: '32px',
+      flexDirection: 'row',
+      justifyContent: 'center'
+    },
+    button: {
+      primary: {
+        backgroundColor: theme.colors.primary,
+        color: theme.colors.secondary,
+        border: `2px solid ${theme.colors.primary}`,
+        borderRadius: theme.borderRadius.md,
+        padding: '12px 24px',
+        fontSize: '1rem',
+        fontWeight: '700',
+        cursor: 'pointer',
+        transition: theme.transitions.normal,
+        outline: 'none',
+        letterSpacing: '0.5px',
+        minWidth: '100px',
+        '&:hover': {
+          backgroundColor: theme.colors.secondary,
+          color: theme.colors.primary,
+          transform: 'translateY(-2px)',
+          boxShadow: theme.shadows.lg
+        }
+      },
+      secondary: {
+        backgroundColor: 'transparent',
+        color: theme.colors.primary,
+        border: `2px solid ${theme.colors.primary}`,
+        borderRadius: theme.borderRadius.md,
+        padding: '12px 24px',
+        fontSize: '1rem',
+        fontWeight: '600',
+        cursor: 'pointer',
+        transition: theme.transitions.normal,
+        outline: 'none',
+        minWidth: '100px',
+        '&:hover': {
+          backgroundColor: theme.colors.primary,
+          color: theme.colors.secondary
+        }
+      }
+    }
+  };
+
+  // Responsive styles for mobile
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    modalStyles.modal.padding = '24px';
+    modalStyles.modal.maxWidth = '95vw';
+    modalStyles.buttonGroup.flexDirection = 'column';
+    modalStyles.buttonGroup.gap = '12px';
+  }
+
   return (
     <div style={commonStyles.container}>
       <h2 style={commonStyles.header}>Customers Information</h2>
@@ -188,75 +314,80 @@ function Customers() {
             </li>
           </ul>
         )}
-        {/* Edit Modal */}
+        {/* Enhanced Edit Modal */}
         {editModal.open && (
           <div
-            style={{
-              position: 'fixed',
-              top: 0, left: 0, right: 0, bottom: 0,
-              background: 'rgba(0,0,0,0.4)',
-              zIndex: 10000,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
+            style={modalStyles.overlay}
             onClick={closeEditModal}
           >
             <form
               onClick={e => e.stopPropagation()}
               onSubmit={handleEditSubmit}
-              style={{
-                background: theme.colors.surface,
-                borderRadius: 12,
-                padding: 32,
-                minWidth: 320,
-                boxShadow: theme.shadows.lg,
-                color: theme.colors.text
-              }}
+              style={modalStyles.modal}
             >
-              <h3 style={{ color: theme.colors.primary, marginBottom: 24 }}>Edit Customer</h3>
-              <div style={commonStyles.formGroup}>
-                <label style={commonStyles.label}>Full Name</label>
+              <h3 style={modalStyles.header}>Edit Customer</h3>
+              
+              <div style={modalStyles.formGroup}>
+                <label style={modalStyles.label}>Full Name</label>
                 <input
                   type="text"
                   value={editForm.fullName}
                   onChange={e => setEditForm(f => ({ ...f, fullName: e.target.value }))}
-                  style={commonStyles.input}
+                  style={modalStyles.input}
+                  placeholder="Enter full name"
                   required
                 />
               </div>
-              <div style={commonStyles.formGroup}>
-                <label style={commonStyles.label}>Email</label>
+              
+              <div style={modalStyles.formGroup}>
+                <label style={modalStyles.label}>Email</label>
                 <input
                   type="email"
                   value={editForm.email}
                   onChange={e => setEditForm(f => ({ ...f, email: e.target.value }))}
-                  style={commonStyles.input}
+                  style={modalStyles.input}
+                  placeholder="Enter email address"
                   required
                 />
               </div>
-              <div style={commonStyles.formGroup}>
-                <label style={commonStyles.label}>Phone</label>
+              
+              <div style={modalStyles.formGroup}>
+                <label style={modalStyles.label}>Phone</label>
                 <input
-                  type="text"
+                  type="tel"
                   value={editForm.phone}
                   onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
-                  style={commonStyles.input}
+                  style={modalStyles.input}
+                  placeholder="Enter phone number"
                 />
               </div>
-              <div style={commonStyles.formGroup}>
-                <label style={commonStyles.label}>CNIC</label>
+              
+              <div style={modalStyles.formGroup}>
+                <label style={modalStyles.label}>CNIC</label>
                 <input
                   type="text"
                   value={editForm.cnic}
                   onChange={e => setEditForm(f => ({ ...f, cnic: e.target.value }))}
-                  style={commonStyles.input}
+                  style={modalStyles.input}
+                  placeholder="Enter CNIC number"
                   required
                 />
               </div>
-              <div style={{ display: 'flex', gap: 16, marginTop: 24 }}>
-                <button type="submit" style={commonStyles.button.primary}>Save</button>
-                <button type="button" style={commonStyles.button.secondary} onClick={closeEditModal}>Cancel</button>
+              
+              <div style={modalStyles.buttonGroup}>
+                <button 
+                  type="submit" 
+                  style={modalStyles.button.primary}
+                >
+                  Save Changes
+                </button>
+                <button 
+                  type="button" 
+                  style={modalStyles.button.secondary} 
+                  onClick={closeEditModal}
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </div>
@@ -267,6 +398,28 @@ function Customers() {
           {filter ? 'No customers found matching your search.' : 'No customers available.'}
         </div>
       )}
+      
+      {/* Add CSS for modal animation */}
+      <style jsx>{`
+        @keyframes modalSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .modal-content {
+            padding: 20px;
+            margin: 10px;
+            max-width: calc(100vw - 20px);
+          }
+        }
+      `}</style>
     </div>
   );
 }
