@@ -13,19 +13,23 @@ import OrdersList from './OrdersList';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
+import WindowManager from './components/WindowManager';
 import { FaBars, FaUpload, FaChartLine, FaShoppingCart, FaListAlt, FaUsers, FaGlobe, FaMoneyBillWave, FaUserFriends, FaExchangeAlt } from 'react-icons/fa';
 import GeminiChat from "./gemini.jsx";
+import { WINDOW_CONFIG } from './config/windowConfig';
+import './components/WindowManager.css';
 
-const WINDOW_CONFIG = {
-  upload: { title: 'Stock Upload', component: StockUpload, admin: true },
-  marketwatch: { title: 'Market Watch', component: MarketWatch },
-  'customer-portfolio': { title: 'Customer/Portfolio', component: CustomerPortfolio },
-  country: { title: 'Country', component: Country },
-  currency: { title: 'Currency', component: Currency },
-  customers: { title: 'Customers Information', component: Customers },
-  exchange: { title: 'Exchange', component: Exchange },
-  order: { title: 'Buy/Sell Order', component: Order },
-  orderslist: { title: 'Orders List', component: OrdersList },
+// Component mapping for dynamic creation
+const COMPONENT_MAP = {
+  StockUpload,
+  MarketWatch,
+  CustomerPortfolio,
+  Country,
+  Currency,
+  Customers,
+  Exchange,
+  Order,
+  OrdersList
 };
 
 function App() {
@@ -43,13 +47,14 @@ function AppContent() {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
-  const [openWindow, setOpenWindow] = useState(null);
+  const [openWindows, setOpenWindows] = useState({});
   const [windowStates, setWindowStates] = useState({});
   const [menuState, setMenuState] = useState('minimized');
+  const [activeWindow, setActiveWindow] = useState(null);
 
   if (!token || !user) {
     return <LoginWrapper onLogin={() => {
-      setOpenWindow(null);
+      setOpenWindows({});
       setMenuState('minimized');
       navigate('/home');
     }} />;
@@ -57,16 +62,41 @@ function AppContent() {
 
   const handleMenuOpen = () => setMenuState('normal');
   const handleMenuClose = () => setMenuState('minimized');
+  
   const handleOpenWindow = (key) => {
-    setOpenWindow(key);
+    setOpenWindows(prev => ({ ...prev, [key]: true }));
     setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
+    setActiveWindow(key);
     setMenuState('minimized');
   };
+  
   const handleMinimize = (key) => setWindowStates((ws) => ({ ...ws, [key]: 'minimized' }));
   const handleMaximize = (key) => setWindowStates((ws) => ({ ...ws, [key]: ws[key] === 'maximized' ? 'normal' : 'maximized' }));
+  const handleRestore = (key) => setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
+  
   const handleClose = (key) => {
-    setWindowStates((ws) => ({ ...ws, [key]: undefined }));
-    setOpenWindow(null);
+    setOpenWindows(prev => {
+      const newWindows = { ...prev };
+      delete newWindows[key];
+      return newWindows;
+    });
+    setWindowStates((ws) => {
+      const newStates = { ...ws };
+      delete newStates[key];
+      return newStates;
+    });
+    if (activeWindow === key) {
+      setActiveWindow(null);
+    }
+  };
+
+  const handleWindowActivate = (key) => {
+    setActiveWindow(key);
+  };
+
+  const handleWindowResize = (key, newSize) => {
+    // Handle window resize if needed
+    console.log(`Window ${key} resized to:`, newSize);
   };
 
   const menuLinks = [
@@ -84,7 +114,7 @@ function AppContent() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    setOpenWindow(null);
+    setOpenWindows({});
     setMenuState('minimized');
     navigate('/');
   };
@@ -183,52 +213,35 @@ function AppContent() {
           </nav>
         </Window>
       )}
-      {openWindow && (
-        <Window
-          title={WINDOW_CONFIG[openWindow].title}
-          windowState={windowStates[openWindow] || 'normal'}
-          onMinimize={() => handleMinimize(openWindow)}
-          onMaximize={() => handleMaximize(openWindow)}
-          onRestore={() => handleMaximize(openWindow)}
-          onClose={() => handleClose(openWindow)}
-          draggable={true}
-        >
-          <div
-            style={{
-              display: windowStates[openWindow] === 'minimized' ? 'none' : 'block',
-              height: '100%',
-            }}
-          >
-            {(!WINDOW_CONFIG[openWindow].admin || (user && user.role === 'admin')) ? (
-              React.createElement(WINDOW_CONFIG[openWindow].component, {
-                onBack: () => {
-                  setOpenWindow(null);
-                  setMenuState('normal');
-                }
-              })
-            ) : (
-              <div style={{ padding: 32, color: 'red' }}>You do not have access to this window.</div>
-            )}
-          </div>
-        </Window>
-      )}
+      <WindowManager
+        openWindows={openWindows}
+        windowStates={windowStates}
+        onWindowClose={handleClose}
+        onWindowMinimize={handleMinimize}
+        onWindowMaximize={handleMaximize}
+        onWindowRestore={handleRestore}
+        onWindowResize={handleWindowResize}
+        activeWindow={activeWindow}
+        onWindowActivate={handleWindowActivate}
+        user={user}
+      />
 
         <div className="taskbar">
-        {Object.entries(windowStates).map(([key, state]) => (
-        state === "minimized" && (
-        <button
-        key={key}
-        className="taskbar-icon"
-        onClick={() => {
-          setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
-          setOpenWindow(key);
-        }}
-      >
-        📄 {WINDOW_CONFIG[key].title}
-      </button>
-    )
-  ))}
-</div>
+          {Object.entries(windowStates).map(([key, state]) => (
+            state === "minimized" && (
+              <button
+                key={key}
+                className="taskbar-icon"
+                onClick={() => {
+                  setWindowStates((ws) => ({ ...ws, [key]: 'normal' }));
+                  setActiveWindow(key);
+                }}
+              >
+                📄 {WINDOW_CONFIG[key].title}
+              </button>
+            )
+          ))}
+        </div>
 
       
     </div>

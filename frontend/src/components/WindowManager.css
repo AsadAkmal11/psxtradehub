@@ -1,0 +1,96 @@
+.window-manager {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.window-manager .resizable-window {
+  pointer-events: auto;
+}
+
+.window-content-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 16px;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* Ensure windows can be properly layered */
+.resizable-window {
+  pointer-events: auto;
+}
+
+/* Active window styling */
+.resizable-window.active {
+  z-index: 1002 !important;
+}
+
+/* Inactive windows */
+.resizable-window:not(.active) {
+  z-index: 1001;
+}
+
+/* Taskbar styling */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(35, 38, 47, 0.95);
+  border-top: 1px solid #F0B90B;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  z-index: 1003;
+  backdrop-filter: blur(10px);
+}
+
+.taskbar-icon {
+  background: transparent;
+  border: 1px solid #F0B90B;
+  color: #F0B90B;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.taskbar-icon:hover {
+  background: #F0B90B;
+  color: #181A20;
+  transform: scale(1.05);
+}
+
+/* Window positioning utilities */
+.window-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .taskbar {
+    height: 50px;
+    padding: 0 8px;
+  }
+  
+  .taskbar-icon {
+    padding: 6px 8px;
+    font-size: 11px;
+    max-width: 120px;
+  }
+} 

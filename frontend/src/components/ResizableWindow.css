@@ -1,0 +1,228 @@
+.resizable-window {
+  background: rgba(35, 38, 47, 0.98);
+  border: 2px solid #F0B90B;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.resizable-window.active {
+  border-color: #F0B90B;
+  box-shadow: 0 8px 32px rgba(240, 185, 11, 0.2);
+}
+
+.resizable-window.maximized {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.window-header {
+  background: linear-gradient(135deg, #23262F 0%, #2A2D36 100%);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #F0B90B;
+  min-height: 48px;
+  user-select: none;
+}
+
+.window-title {
+  color: #F0B90B;
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.window-btn {
+  background: transparent;
+  border: 1px solid #F0B90B;
+  color: #F0B90B;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.window-btn:hover {
+  background: #F0B90B;
+  color: #181A20;
+  transform: scale(1.05);
+}
+
+.window-content {
+  height: calc(100% - 48px);
+  overflow: auto;
+  background: rgba(35, 38, 47, 0.95);
+  pointer-events: auto;
+}
+
+/* Resize handles */
+.resize-handle {
+  position: absolute;
+  background: transparent;
+  z-index: 10;
+  pointer-events: auto;
+  transition: background-color 0.2s ease;
+}
+
+.resize-n {
+  top: 0;
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: n-resize;
+}
+
+.resize-s {
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 8px;
+  cursor: s-resize;
+}
+
+.resize-e {
+  top: 8px;
+  right: 0;
+  bottom: 8px;
+  width: 8px;
+  cursor: e-resize;
+}
+
+.resize-w {
+  top: 8px;
+  left: 0;
+  bottom: 8px;
+  width: 8px;
+  cursor: w-resize;
+}
+
+.resize-ne {
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  cursor: ne-resize;
+}
+
+.resize-nw {
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  cursor: nw-resize;
+}
+
+.resize-se {
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  cursor: se-resize;
+}
+
+.resize-sw {
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  cursor: sw-resize;
+}
+
+/* Hover effects for resize handles */
+.resize-handle:hover {
+  background: rgba(240, 185, 11, 0.3);
+  border: 1px solid rgba(240, 185, 11, 0.5);
+}
+
+.resize-n:hover,
+.resize-s:hover {
+  background: linear-gradient(to right, transparent, rgba(240, 185, 11, 0.2), transparent);
+}
+
+.resize-e:hover,
+.resize-w:hover {
+  background: linear-gradient(to bottom, transparent, rgba(240, 185, 11, 0.2), transparent);
+}
+
+/* Corner resize handles */
+.resize-ne:hover,
+.resize-nw:hover,
+.resize-se:hover,
+.resize-sw:hover {
+  background: rgba(240, 185, 11, 0.3);
+}
+
+/* Minimized state */
+.resizable-window.minimized {
+  width: 320px !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  max-height: 56px !important;
+}
+
+.resizable-window.minimized .window-content {
+  display: none;
+}
+
+/* Draggable window indicator */
+.draggable-window .window-header:hover {
+  background: linear-gradient(135deg, #2A2D36 0%, #32353F 100%);
+}
+
+/* Scrollbar styling */
+.window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(35, 38, 47, 0.5);
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: #F0B90B;
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: #D4A017;
+}
+
+/* Animation for window opening */
+.resizable-window {
+  animation: windowOpen 0.3s ease-out;
+}
+
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Focus indicator */
+.resizable-window:focus-within {
+  border-color: #F0B90B;
+  box-shadow: 0 0 0 2px rgba(240, 185, 11, 0.3);
+} 
