@@ -1,94 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import "./ResizableWindow.css";
 
-function useDraggable(initialPosition, canDrag) {
-  const dragging = React.useRef(false);
-  const offset = React.useRef({ x: 0, y: 0 });
-  const [position, setPosition] = React.useState(() => initialPosition);
 
-  const onPointerDown = (e) => {
-    if (!canDrag) return;
-    e.preventDefault();
-    dragging.current = true;
-    const rect = e.target.closest('.resizable-window').getBoundingClientRect();
-    offset.current = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerUp);
-  };
-
-  const onPointerMove = (e) => {
-    if (!dragging.current) return;
-    e.preventDefault();
-    setPosition({
-      x: e.clientX - offset.current.x,
-      y: e.clientY - offset.current.y,
-    });
-  };
-
-  const onPointerUp = () => {
-    dragging.current = false;
-    window.removeEventListener('mousemove', onPointerMove);
-    window.removeEventListener('mouseup', onPointerUp);
-  };
-
-  return { position, onPointerDown };
-}
-
-function useResizable(initialSize, minSize, maxSize, onResize) {
-  const [size, setSize] = useState(initialSize);
-  const resizing = useRef(false);
-  const startSize = useRef({ width: 0, height: 0 });
-  const startPos = useRef({ x: 0, y: 0 });
-
-  const constrainSize = useCallback((newWidth, newHeight) => {
-    return {
-      width: Math.max(minSize.width, Math.min(maxSize.width, newWidth)),
-      height: Math.max(minSize.height, Math.min(maxSize.height, newHeight))
-    };
-  }, [minSize, maxSize]);
-
-  const handleResizeStart = useCallback((e, direction) => {
-    e.preventDefault();
-    e.stopPropagation();
-    resizing.current = true;
-    startSize.current = { ...size };
-    startPos.current = { x: e.clientX, y: e.clientY };
-    
-    const handleMouseMove = (e) => {
-      if (!resizing.current) return;
-      e.preventDefault();
-      
-      const deltaX = e.clientX - startPos.current.x;
-      const deltaY = e.clientY - startPos.current.y;
-      
-      let newWidth = startSize.current.width;
-      let newHeight = startSize.current.height;
-      
-      if (direction.includes('e')) newWidth += deltaX;
-      if (direction.includes('w')) newWidth -= deltaX;
-      if (direction.includes('s')) newHeight += deltaY;
-      if (direction.includes('n')) newHeight -= deltaY;
-      
-      const constrainedSize = constrainSize(newWidth, newHeight);
-      setSize(constrainedSize);
-      if (onResize) onResize(constrainedSize);
-    };
-    
-    const handleMouseUp = () => {
-      resizing.current = false;
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-  }, [size, constrainSize, onResize]);
-
-  return { size, handleResizeStart };
-}
 
 const ResizableWindow = ({
   id,
@@ -111,8 +24,98 @@ const ResizableWindow = ({
   onActivate
 }) => {
   const canDrag = draggable && windowState === "normal";
-  const { position, onPointerDown } = useDraggable(initialPosition, canDrag);
-  const { size, handleResizeStart } = useResizable(initialSize, minSize, maxSize, onResize);
+  const [position, setPosition] = useState(initialPosition);
+  const [size, setSize] = useState(initialSize);
+  const resizing = useRef(false);
+  const startSize = useRef({ width: 0, height: 0 });
+  const startPos = useRef({ x: 0, y: 0 });
+  const startPosition = useRef({ x: 0, y: 0 });
+
+  // Draggable functionality
+  const dragging = useRef(false);
+  const dragOffset = useRef({ x: 0, y: 0 });
+
+  const onPointerDown = (e) => {
+    if (!canDrag) return;
+    e.preventDefault();
+    dragging.current = true;
+    const rect = e.target.closest('.resizable-window').getBoundingClientRect();
+    dragOffset.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+  };
+
+  const onPointerMove = (e) => {
+    if (!dragging.current) return;
+    e.preventDefault();
+    setPosition({
+      x: e.clientX - dragOffset.current.x,
+      y: e.clientY - dragOffset.current.y,
+    });
+  };
+
+  const onPointerUp = () => {
+    dragging.current = false;
+    window.removeEventListener('mousemove', onPointerMove);
+    window.removeEventListener('mouseup', onPointerUp);
+  };
+
+  // Resizable functionality with position adjustment
+  const constrainSize = useCallback((newWidth, newHeight) => {
+    return {
+      width: Math.max(minSize.width, Math.min(maxSize.width, newWidth)),
+      height: Math.max(minSize.height, Math.min(maxSize.height, newHeight))
+    };
+  }, [minSize, maxSize]);
+
+  const handleResizeStart = useCallback((e, direction) => {
+    e.preventDefault();
+    e.stopPropagation();
+    resizing.current = true;
+    startSize.current = { ...size };
+    startPosition.current = { ...position };
+    startPos.current = { x: e.clientX, y: e.clientY };
+    
+    const handleMouseMove = (e) => {
+      if (!resizing.current) return;
+      e.preventDefault();
+      
+      const deltaX = e.clientX - startPos.current.x;
+      const deltaY = e.clientY - startPos.current.y;
+      
+      let newWidth = startSize.current.width;
+      let newHeight = startSize.current.height;
+      let newPosition = { ...startPosition.current };
+      
+      if (direction.includes('e')) newWidth += deltaX;
+      if (direction.includes('w')) {
+        newWidth -= deltaX;
+        newPosition.x = startPosition.current.x + deltaX;
+      }
+      if (direction.includes('s')) newHeight += deltaY;
+      if (direction.includes('n')) {
+        newHeight -= deltaY;
+        newPosition.y = startPosition.current.y + deltaY;
+      }
+      
+      const constrainedSize = constrainSize(newWidth, newHeight);
+      setSize(constrainedSize);
+      setPosition(newPosition);
+      if (onResize) onResize(constrainedSize);
+    };
+    
+    const handleMouseUp = () => {
+      resizing.current = false;
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  }, [size, position, constrainSize, onResize]);
 
   const baseStyle = windowState === "maximized"
     ? { 

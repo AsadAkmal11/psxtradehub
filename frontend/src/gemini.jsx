@@ -17,13 +17,15 @@ const GeminiChat = () => {
     setLoading(true);
     setError("");
     setResponse("");
+    
     try {
+
       const res = await axios.post("/api/trade-chat", {
         message,
         customerNo,
         broker,
         portfolioId: portfolioId ? Number(portfolioId) : undefined,
-      });
+        });
       setResponse(res.data.reply);
     } catch (err) {
       setError(
@@ -33,7 +35,7 @@ const GeminiChat = () => {
       setLoading(false);
     }
   };
-
+  
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {

@@ -39,7 +39,6 @@ const COMPONENT_MAP = {
 function App() {
   return (
     <div>
-      <GeminiChat />
       <Router>
         <AppContent />
       </Router>
@@ -232,7 +231,7 @@ function AppContent() {
         user={user}
       />
 
-        {/* <div className="taskbar">
+        <div className="taskbar">
           {Object.entries(windowStates).map(([key, state]) => (
             state === "minimized" && (
               <button
@@ -247,8 +246,9 @@ function AppContent() {
               </button>
             )
           ))}
-        </div> */}
+        </div>
 
+      <GeminiChat />
       
     </div>
   );
