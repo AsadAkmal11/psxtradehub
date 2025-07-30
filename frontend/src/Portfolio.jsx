@@ -7,7 +7,7 @@
      // Portfolio fields
      portfolioName: '',
      customerNo:'',
-     porfolioNo:'',
+     portfolioNo:'',
      initialCapital: '',
    });
    const [message, setMessage] = useState('');
@@ -46,7 +46,7 @@
         setMessage('Customer and portfolio created successfully!');
         setFormData({
         portfolioName: '',
-        porfolioNo:'',
+        portfolioNo:'',
         customerNo: '',
         initialCapital: '',
         });
@@ -99,7 +99,7 @@
                     type="text"
                     id="portfolioNo"
                     name="portfolioNo"
-                    value={formData.customerNo}
+                    value={formData.portfolioNo}
                     onChange={handleChange}
                     required
                     placeholder="Enter portfolio number"

@@ -49,6 +49,7 @@ const WindowManager = ({
     StockUpload,
     MarketWatch,
     CustomerPortfolio,
+    Portfolio,
     Country,
     Currency,
     Customers,
@@ -62,6 +63,7 @@ const WindowManager = ({
   const getWindowConfig = useCallback((windowId) => {
     const config = WINDOW_CONFIG[windowId];
     if (!config) {
+      console.error(`Window config not found for: ${windowId}`);
       return {
         title: 'Unknown Window',
         defaultWidth: 800,
@@ -75,6 +77,11 @@ const WindowManager = ({
     
     // Map the component name to actual component
     const Component = COMPONENT_MAP[config.component];
+    if (!Component) {
+      console.error(`Component not found for: ${config.component} in window: ${windowId}`);
+      console.log('Available components:', Object.keys(COMPONENT_MAP));
+      console.log('Available configs:', Object.keys(WINDOW_CONFIG));
+    }
     return {
       ...config,
       component: Component
@@ -138,9 +145,13 @@ const WindowManager = ({
           >
             <div className="window-content-wrapper">
               <ErrorBoundary>
-                {React.createElement(config.component, {
+                {config.component ? React.createElement(config.component, {
                   onBack: () => onWindowClose(windowId)
-                })}
+                }) : (
+                  <div style={{ padding: '20px', color: 'red' }}>
+                    Component not found: {config.component}
+                  </div>
+                )}
               </ErrorBoundary>
             </div>
           </ResizableWindow>

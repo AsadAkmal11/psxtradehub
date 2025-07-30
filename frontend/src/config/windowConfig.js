@@ -31,6 +31,16 @@ export const WINDOW_CONFIG = {
     maxWidth: 1400,
     maxHeight: 900
   },
+  portfolio: { 
+    title: 'Portfolio', 
+    component: 'Portfolio',
+    defaultWidth: 1000,
+    defaultHeight: 750,    // Increased for form content
+    minWidth: 800,
+    minHeight: 600,
+    maxWidth: 1400,
+    maxHeight: 900
+  },
   country: { 
     title: 'Country', 
     component: 'Country',
@@ -84,12 +94,22 @@ export const WINDOW_CONFIG = {
   orderslist: { 
     title: 'Orders List', 
     component: 'OrdersList',
+    defaultWidth: 1200,    // Increased for table view
+    defaultHeight: 750,    // Increased for table content
+    minWidth: 900,
+    minHeight: 600,
+    maxWidth: 1600,
+    maxHeight: 1000
+  },
+  EChartsTest: { 
+    title: 'ECharts Test', 
+    component: 'EChartsTest',
     defaultWidth: 1000,
-    defaultHeight: 700,
+    defaultHeight: 600,
     minWidth: 800,
     minHeight: 500,
     maxWidth: 1400,
-    maxHeight: 900
+    maxHeight: 800
   }
 };
 

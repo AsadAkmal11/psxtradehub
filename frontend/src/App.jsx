@@ -114,7 +114,7 @@ function AppContent() {
     { key: 'currency', label: 'Currency', icon: FaMoneyBillWave },
     { key: 'customers', label: 'Customers Information', icon: FaUserFriends },
     { key: 'exchange', label: 'Exchange', icon: FaExchangeAlt },
-    { key: 'echartstest', label: 'ECharts Test', icon: FaChartLine }
+    { key: 'EChartsTest', label: 'ECharts Test', icon: FaChartLine }
   ];
 
   const handleLogout = () => {
