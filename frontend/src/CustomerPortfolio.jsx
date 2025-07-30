@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BackButton from './components/BackButton';
+// import BackButton from './components/BackButton';
 import { commonStyles, theme } from './components/ThemeProvider';
 
 function CustomerPortfolio({ onBack }) {
@@ -100,14 +100,27 @@ function CustomerPortfolio({ onBack }) {
 
   return (
     <div style={commonStyles.container}>
-      <BackButton onBack={onBack} />
+      {/* <BackButton onBack={onBack} /> */}
       <h2 style={commonStyles.header}>Customer & Portfolio Management</h2>
-      <form>
-        {message && <div style={commonStyles.message.success}>{message}</div>}
-        {error && <div style={commonStyles.message.error}>{error}</div>}
-        <h3 style={{ color: theme.colors.primary, fontSize: '1.2rem', marginBottom: theme.spacing.lg, borderBottom: `2px solid ${theme.colors.border}`, paddingBottom: theme.spacing.sm }}>Customer Details</h3>
+      <form style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+        {message && <div style={{...commonStyles.message.success, gridColumn: '1 / -1'}}>{message}</div>}
+        {error && <div style={{...commonStyles.message.error, gridColumn: '1 / -1'}}>{error}</div>}
+        
+        {/* Customer Details Section */}
+        <div style={{ gridColumn: '1 / -1', marginBottom: '1rem' }}>
+          <h3 style={{ 
+            color: theme.colors.primary, 
+            fontSize: '1.2rem', 
+            marginBottom: '1rem', 
+            borderBottom: `2px solid ${theme.colors.border}`, 
+            paddingBottom: '0.5rem',
+            gridColumn: '1 / -1'
+          }}>Customer Details</h3>
+        </div>
+
+        {/* Row 1: Full Name, Email */}
         <div style={commonStyles.formGroup}>
-          <label htmlFor="fullName" style={commonStyles.label}>Full Name</label>
+          <label htmlFor="fullName" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Full Name *</label>
           <input
             type="text"
             id="fullName"
@@ -115,11 +128,18 @@ function CustomerPortfolio({ onBack }) {
             value={formData.fullName}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter full name"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
+
         <div style={commonStyles.formGroup}>
-          <label htmlFor="email" style={commonStyles.label}>Email</label>
+          <label htmlFor="email" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Email Address *</label>
           <input
             type="email"
             id="email"
@@ -127,22 +147,37 @@ function CustomerPortfolio({ onBack }) {
             value={formData.email}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter email address"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
+
+        {/* Row 2: Phone, CNIC */}
         <div style={commonStyles.formGroup}>
-          <label htmlFor="phone" style={commonStyles.label}>Phone Number (Optional)</label>
+          <label htmlFor="phone" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Phone Number</label>
           <input
             type="tel"
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            style={commonStyles.input}
+            placeholder="Enter phone number (optional)"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
+
         <div style={commonStyles.formGroup}>
-          <label htmlFor="cnic" style={commonStyles.label}>CNIC or ID Number</label>
+          <label htmlFor="cnic" style={{...commonStyles.label, marginBottom: '0.5rem'}}>CNIC/ID Number *</label>
           <input
             type="text"
             id="cnic"
@@ -150,11 +185,19 @@ function CustomerPortfolio({ onBack }) {
             value={formData.cnic}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter CNIC or ID number"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
+
+        {/* Row 3: Customer No */}
         <div style={commonStyles.formGroup}>
-          <label htmlFor="customerNo" style={commonStyles.label}>Customer No</label>
+          <label htmlFor="customerNo" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Customer Number *</label>
           <input
             type="text"
             id="customerNo"
@@ -162,14 +205,46 @@ function CustomerPortfolio({ onBack }) {
             value={formData.customerNo}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter customer number"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
-        <button type="button" style={{...commonStyles.button.primary, marginBottom: theme.spacing.lg}} onClick={handleSaveCustomer}>Save Customer</button>
 
-        <h3 style={{ color: theme.colors.primary, fontSize: '1.2rem', marginBottom: theme.spacing.lg, borderBottom: `2px solid ${theme.colors.border}`, paddingBottom: theme.spacing.sm }}>Portfolio Details</h3>
+        {/* Save Customer Button */}
+        <div style={{...commonStyles.formGroup, gridColumn: '1 / -1', textAlign: 'center', marginTop: '1rem'}}>
+          <button 
+            type="button" 
+            style={{
+              ...commonStyles.button.primary,
+              padding: '0.75rem 2rem',
+              fontSize: '1rem',
+              minWidth: '200px'
+            }} 
+            onClick={handleSaveCustomer}
+          >
+            Save Customer
+          </button>
+        </div>
+
+        {/* Portfolio Details Section */}
+        <div style={{ gridColumn: '1 / -1', marginTop: '2rem', marginBottom: '1rem' }}>
+          <h3 style={{ 
+            color: theme.colors.primary, 
+            fontSize: '1.2rem', 
+            marginBottom: '1rem', 
+            borderBottom: `2px solid ${theme.colors.border}`, 
+            paddingBottom: '0.5rem'
+          }}>Portfolio Details</h3>
+        </div>
+
+        {/* Row 4: Portfolio Name, Initial Capital */}
         <div style={commonStyles.formGroup}>
-          <label htmlFor="portfolioName" style={commonStyles.label}>Portfolio Name</label>
+          <label htmlFor="portfolioName" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Portfolio Name *</label>
           <input
             type="text"
             id="portfolioName"
@@ -177,11 +252,18 @@ function CustomerPortfolio({ onBack }) {
             value={formData.portfolioName}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter portfolio name"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
+
         <div style={commonStyles.formGroup}>
-          <label htmlFor="initialCapital" style={commonStyles.label}>Initial Capital</label>
+          <label htmlFor="initialCapital" style={{...commonStyles.label, marginBottom: '0.5rem'}}>Initial Capital *</label>
           <input
             type="number"
             id="initialCapital"
@@ -189,10 +271,33 @@ function CustomerPortfolio({ onBack }) {
             value={formData.initialCapital}
             onChange={handleChange}
             required
-            style={commonStyles.input}
+            placeholder="Enter initial capital amount"
+            min="0"
+            step="0.01"
+            style={{
+              ...commonStyles.input,
+              padding: '0.75rem',
+              fontSize: '0.95rem',
+              marginBottom: '0.5rem'
+            }}
           />
         </div>
-        <button type="button" style={commonStyles.button.primary} onClick={handleSavePortfolio}>Save Portfolio</button>
+
+        {/* Save Portfolio Button */}
+        <div style={{...commonStyles.formGroup, gridColumn: '1 / -1', textAlign: 'center', marginTop: '1rem'}}>
+          <button 
+            type="button" 
+            style={{
+              ...commonStyles.button.primary,
+              padding: '0.75rem 2rem',
+              fontSize: '1rem',
+              minWidth: '200px'
+            }} 
+            onClick={handleSavePortfolio}
+          >
+            Save Portfolio
+          </button>
+        </div>
       </form>
     </div>
   );

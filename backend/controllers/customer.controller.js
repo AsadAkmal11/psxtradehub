@@ -69,7 +69,27 @@ exports.createCustomer = async (req, res) => {
     res.status(500).json({ message: 'Failed to create customer', error: error.message });
   }
 };
-
+exports.createPortfolio = async (req, res) => {
+  const { portfolioName, portfolioNo, customerNo, initialCapital } = req.body;
+  try {
+    // Optionally, check if customer exists
+    const customer = await Customer.findOne({ where: { customerNo } });
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+    // Create the portfolio
+    const portfolio = await Portfolio.create({
+      portfolioName,
+      portfolioNo,
+      customerNo,
+      initialCapital,
+    });
+    res.status(201).json({ message: 'Portfolio created successfully', portfolio });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to create portfolio', error: error.message });
+  }
+};
 exports.getCustomerPortfolio = async (req, res) => {
     const { customerNo } = req.params;
     try {

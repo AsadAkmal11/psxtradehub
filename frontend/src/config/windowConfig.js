@@ -1,99 +1,89 @@
-// Window configuration for all screens
+// Window configuration for all screens - Optimized for no scrolling
 export const WINDOW_CONFIG = {
   upload: { 
     title: 'Stock Upload', 
     component: 'StockUpload', 
     admin: true,
     defaultWidth: 1200,
-    defaultHeight: 600,
-    minWidth: 600,
-    minHeight: 400,
-    maxWidth: 1200,
-    maxHeight: 800
+    defaultHeight: 800,    // Increased for table preview
+    minWidth: 800,
+    minHeight: 600,
+    maxWidth: 1400,
+    maxHeight: 1000
   },
   marketwatch: { 
     title: 'Market Watch', 
     component: 'MarketWatch',
-    defaultWidth: 1000,
-    defaultHeight: 700,
-    minWidth: 800,
-    minHeight: 500,
-    maxWidth: 1400,
-    maxHeight: 900
+    defaultWidth: 1200,    // Increased for better table view
+    defaultHeight: 750,    // Increased for table content
+    minWidth: 900,
+    minHeight: 600,
+    maxWidth: 1600,
+    maxHeight: 1000
   },
   'customer-portfolio': { 
     title: 'Customer/Portfolio', 
     component: 'CustomerPortfolio',
-    defaultWidth: 900,
-    defaultHeight: 650,
-    minWidth: 700,
-    minHeight: 450,
-    maxWidth: 1300,
-    maxHeight: 850
+    defaultWidth: 1000,
+    defaultHeight: 750,    // Increased for form content
+    minWidth: 800,
+    minHeight: 600,
+    maxWidth: 1400,
+    maxHeight: 900
   },
   country: { 
     title: 'Country', 
     component: 'Country',
-    defaultWidth: 750,
-    defaultHeight: 550,
-    minWidth: 600,
-    minHeight: 400,
-    maxWidth: 1100,
-    maxHeight: 750
+    defaultWidth: 800,
+    defaultHeight: 650,    // Increased for form content
+    minWidth: 700,
+    minHeight: 500,
+    maxWidth: 1200,
+    maxHeight: 800
   },
   currency: { 
     title: 'Currency', 
     component: 'Currency',
-    defaultWidth: 750,
-    defaultHeight: 550,
-    minWidth: 600,
-    minHeight: 400,
-    maxWidth: 1100,
-    maxHeight: 750
+    defaultWidth: 800,
+    defaultHeight: 650,    // Increased for form content
+    minWidth: 700,
+    minHeight: 500,
+    maxWidth: 1200,
+    maxHeight: 800
   },
   customers: { 
     title: 'Customers Information', 
     component: 'Customers',
-    defaultWidth: 900,
-    defaultHeight: 650,
-    minWidth: 700,
-    minHeight: 450,
-    maxWidth: 1300,
-    maxHeight: 850
+    defaultWidth: 1100,    // Increased for table view
+    defaultHeight: 750,    // Increased for table content
+    minWidth: 900,
+    minHeight: 600,
+    maxWidth: 1500,
+    maxHeight: 1000
   },
   exchange: { 
     title: 'Exchange', 
     component: 'Exchange',
-    defaultWidth: 800,
-    defaultHeight: 600,
-    minWidth: 600,
-    minHeight: 400,
-    maxWidth: 1200,
-    maxHeight: 800
+    defaultWidth: 900,
+    defaultHeight: 650,    // Increased for form content
+    minWidth: 700,
+    minHeight: 500,
+    maxWidth: 1300,
+    maxHeight: 850
   },
   order: { 
     title: 'Buy/Sell Order', 
     component: 'Order',
-    defaultWidth: 850,
-    defaultHeight: 600,
-    minWidth: 650,
-    minHeight: 400,
-    maxWidth: 1250,
-    maxHeight: 800
+    defaultWidth: 1200,    // For 3-column layout
+    defaultHeight: 700,    // Increased for form content
+    minWidth: 900,         // Increased for proper layout
+    minHeight: 550,
+    maxWidth: 1500,
+    maxHeight: 900
   },
   orderslist: { 
     title: 'Orders List', 
     component: 'OrdersList',
-    defaultWidth: 1000,
-    defaultHeight: 700,
-    minWidth: 800,
-    minHeight: 500,
-    maxWidth: 1400,
-    maxHeight: 900
-  },
-  echartstest: { 
-    title: 'ECharts Test', 
-    component: 'EChartsTest',
     defaultWidth: 1000,
     defaultHeight: 700,
     minWidth: 800,

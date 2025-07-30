@@ -4,6 +4,7 @@ import StockUpload from './stockupload';
 import Home from './Home';
 import MarketWatch from './MarketWatch';
 import CustomerPortfolio from './CustomerPortfolio';
+import Portfolio from './Portfolio.jsx';
 import Country from './Country';
 import Currency from './Currency';
 import Customers from './Customers';
@@ -25,6 +26,7 @@ const COMPONENT_MAP = {
   StockUpload,
   MarketWatch,
   CustomerPortfolio,
+  Portfolio,
   Country,
   Currency,
   Customers,
@@ -106,7 +108,8 @@ function AppContent() {
     { key: 'marketwatch', label: 'Market Watch', icon: FaChartLine },
     { key: 'order', label: 'Buy/Sell Order', icon: FaShoppingCart },
     { key: 'orderslist', label: 'Orders List', icon: FaListAlt },
-    { key: 'customer-portfolio', label: 'Customer/Portfolio', icon: FaUsers },
+    { key: 'customer-portfolio', label: 'Customer', icon: FaUsers },
+    { key: 'portfolio', label: 'Portfolio', icon: FaUsers },
     { key: 'country', label: 'Country', icon: FaGlobe },
     { key: 'currency', label: 'Currency', icon: FaMoneyBillWave },
     { key: 'customers', label: 'Customers Information', icon: FaUserFriends },
@@ -129,7 +132,7 @@ function AppContent() {
           <button className="hamburger-icon-left" onClick={handleMenuOpen}>
             <FaBars size={28} color="#F0B90B" />
           </button>
-          <h1 className="header-title">PSX Trade Hub</h1>
+          <h1 className="header-title">FinDexPro</h1>
           <button
             className="logout-btn" 
             onClick={handleLogout}
@@ -229,7 +232,7 @@ function AppContent() {
         user={user}
       />
 
-        <div className="taskbar">
+        {/* <div className="taskbar">
           {Object.entries(windowStates).map(([key, state]) => (
             state === "minimized" && (
               <button
@@ -244,7 +247,7 @@ function AppContent() {
               </button>
             )
           ))}
-        </div>
+        </div> */}
 
       
     </div>

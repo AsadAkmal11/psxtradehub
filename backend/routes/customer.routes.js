@@ -20,4 +20,5 @@ router.get('/portfolios', async (req, res) => {
 router.get('/customerPortfolio/:customerNo', customerController.getCustomerPortfolio);
 router.post('/CustomerPortfolio/:customerNo',customerController.deleteCustomer);
 router.put('/customers/:customerNo', customerController.editCustomer);
+router.post('/portfolio', authMiddleware, customerController.createPortfolio);
 module.exports = router; 

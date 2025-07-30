@@ -4,6 +4,7 @@ import { WINDOW_CONFIG, WINDOW_POSITIONING, Z_INDEX } from '../config/windowConf
 import StockUpload from '../stockupload';
 import MarketWatch from '../MarketWatch';
 import CustomerPortfolio from '../CustomerPortfolio';
+import Portfolio from '../Portfolio';
 import Country from '../Country';
 import Currency from '../Currency';
 import Customers from '../Customers';

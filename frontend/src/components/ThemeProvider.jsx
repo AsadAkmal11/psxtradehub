@@ -51,39 +51,41 @@ export const commonStyles = {
   container: {
     backgroundColor: theme.colors.surface,
     borderRadius: theme.borderRadius.lg,
-    padding: theme.spacing.xl,
+    padding: theme.spacing.lg,  // Reduced from xl to lg for more content space
     border: `2px solid ${theme.colors.border}`,
     boxShadow: theme.shadows.md,
     color: theme.colors.text,
-    minHeight: '400px'
+    minHeight: '400px',
+    height: '100%',  // Use full available height
+    overflow: 'hidden'  // Prevent scrolling
   },
   header: {
     color: theme.colors.primary,
-    fontSize: '1.5rem',
+    fontSize: '1.4rem',  // Slightly reduced from 1.5rem
     fontWeight: '700',
-    marginBottom: theme.spacing.lg,
+    marginBottom: theme.spacing.md,  // Reduced from lg
     textAlign: 'center',
     letterSpacing: '1px'
   },
   formGroup: {
-    marginBottom: theme.spacing.md
+    marginBottom: theme.spacing.sm  // Reduced from md for tighter spacing
   },
   label: {
     display: 'block',
     color: theme.colors.text,
-    fontSize: '0.9rem',
+    fontSize: '0.85rem',  // Slightly reduced
     fontWeight: '600',
-    marginBottom: theme.spacing.sm,
+    marginBottom: theme.spacing.xs,  // Reduced from sm
     letterSpacing: '0.5px'
   },
   input: {
     width: '100%',
-    padding: `${theme.spacing.md} ${theme.spacing.lg}`,
+    padding: `${theme.spacing.sm} ${theme.spacing.md}`,  // Reduced padding
     backgroundColor: theme.colors.secondary,
     border: `1px solid ${theme.colors.border}`,
     borderRadius: theme.borderRadius.md,
     color: theme.colors.text,
-    fontSize: '1rem',
+    fontSize: '0.95rem',  // Slightly reduced
     transition: theme.transitions.normal,
     outline: 'none',
     boxSizing: 'border-box',
@@ -97,12 +99,12 @@ export const commonStyles = {
   },
   select: {
     width: '100%',
-    padding: `${theme.spacing.md} ${theme.spacing.lg}`,
+    padding: `${theme.spacing.sm} ${theme.spacing.md}`,  // Reduced padding
     backgroundColor: theme.colors.secondary,
     border: `1px solid ${theme.colors.border}`,
     borderRadius: theme.borderRadius.md,
     color: theme.colors.text,
-    fontSize: '1rem',
+    fontSize: '0.95rem',  // Slightly reduced
     transition: theme.transitions.normal,
     outline: 'none',
     cursor: 'pointer',
@@ -121,8 +123,8 @@ export const commonStyles = {
       color: theme.colors.secondary,
       border: `2px solid ${theme.colors.primary}`,
       borderRadius: theme.borderRadius.md,
-      padding: `${theme.spacing.md} ${theme.spacing.xl}`,
-      fontSize: '1rem',
+      padding: `${theme.spacing.sm} ${theme.spacing.lg}`,  // Reduced padding
+      fontSize: '0.95rem',  // Slightly reduced
       fontWeight: '700',
       cursor: 'pointer',
       transition: theme.transitions.normal,

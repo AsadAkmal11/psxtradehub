@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BackButton from './components/BackButton';
+// import BackButton from './components/BackButton';
 import SearchableDropdown from './components/SearchableDropdown';
 import './App.css';
 
@@ -103,13 +103,16 @@ export default function Order({ onBack }) {
     <div className="form-container" style={{
       border: `2px solid ${theme.border}`,
       backgroundColor: theme.secondary,
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      maxWidth: '1200px' // Increased from 600px to accommodate rows
     }}>
-      <BackButton onBack={onBack} />
+      {/* <BackButton onBack={onBack} /> */}
       <h2 style={{ color: theme.text, transition: 'color 0.3s ease' }}>Buy/Sell Order</h2>
       {errors.submit && <div className="watchlist-message" style={{ background: theme.primary }}>{errors.submit}</div>}
       {success && <div className="watchlist-message" style={{ background: theme.primary }}>{success}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+        
+        {/* Row 1: Customer, Stock Symbol, Portfolio */}
         <div className="form-group">
           <label>Customer:</label>
           <SearchableDropdown
@@ -124,6 +127,7 @@ export default function Order({ onBack }) {
           />
           {errors.customerNo && <div className="error">{errors.customerNo}</div>}
         </div>
+        
         <div className="form-group">
           <label>Stock Symbol:</label>
           <SearchableDropdown
@@ -134,6 +138,7 @@ export default function Order({ onBack }) {
           />
           {errors.symbol && <div className="error">{errors.symbol}</div>}
         </div>
+        
         <div className="form-group">
           <label>Portfolio:</label>
           <SearchableDropdown
@@ -148,6 +153,8 @@ export default function Order({ onBack }) {
           />
           {errors.portfolioId && <div className="error">{errors.portfolioId}</div>}
         </div>
+
+        {/* Row 2: Broker, Trade Date, Action */}
         <div className="form-group">
           <label style={{ color: theme.text }}>Broker:</label>
           <select 
@@ -158,7 +165,11 @@ export default function Order({ onBack }) {
               border: `2px solid ${theme.border}`,
               backgroundColor: 'white',
               color: theme.text,
-              transition: 'border-color 0.3s ease'
+              transition: 'border-color 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem'
             }}
           >
             <option value="">Select Broker</option>
@@ -168,6 +179,7 @@ export default function Order({ onBack }) {
           </select>
           {errors.broker && <div className="error" style={{ color: theme.primary }}>{errors.broker}</div>}
         </div>
+        
         <div className="form-group">
           <label>Trade Date:</label>
           <input type="DATE" name="tradeDate" value={form.tradeDate} onChange={handleChange}
@@ -176,11 +188,16 @@ export default function Order({ onBack }) {
               backgroundColor: theme.secondary,
               color: theme.text,
               fontWeight: 'bold',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem'
             }}
            />
           {errors.tradeDate && <div className="error">{errors.tradeDate}</div>}
         </div>
+        
         <div className="form-group">
           <label style={{ color: theme.text, fontWeight: 'bold' }}>Action:</label>
           <select 
@@ -192,7 +209,11 @@ export default function Order({ onBack }) {
               backgroundColor: theme.secondary,
               color: theme.text,
               fontWeight: 'bold',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem'
             }}
           >
             <option value="">Select Action</option>
@@ -201,6 +222,8 @@ export default function Order({ onBack }) {
           </select>
           {errors.action && <div className="error" style={{ color: theme.primary }}>{errors.action}</div>}
         </div>
+
+        {/* Row 3: Order Type, Quantity, Price */}
         <div className="form-group">
           <label style={{ color: theme.text }}>Order Type:</label>
           <input 
@@ -211,11 +234,17 @@ export default function Order({ onBack }) {
             style={{
               border: `1px solid ${theme.border}`,
               backgroundColor: 'black',
-              transition: 'border-color 0.3s ease'
+              transition: 'border-color 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem',
+              color: 'white'
             }}
           />
           {errors.orderType && <div className="error" style={{ color: theme.primary }}>{errors.orderType}</div>}
         </div>
+        
         <div className="form-group">
           <label style={{ color: theme.text }}>Quantity:</label>
           <input 
@@ -226,11 +255,17 @@ export default function Order({ onBack }) {
             style={{
               border: `1px solid ${theme.border}`,
               backgroundColor: 'black',
-              transition: 'border-color 0.3s ease'
+              transition: 'border-color 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem',
+              color: 'white'
             }}
           />
           {errors.quantity && <div className="error" style={{ color: theme.primary }}>{errors.quantity}</div>}
         </div>
+        
         <div className="form-group">
           <label style={{ color: theme.text }}>Price:</label>
           <input 
@@ -242,25 +277,39 @@ export default function Order({ onBack }) {
             style={{
               border: `1px solid ${theme.border}`,
               backgroundColor: 'black',
-              transition: 'border-color 0.3s ease'
+              transition: 'border-color 0.3s ease',
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              fontSize: '1rem',
+              color: 'white'
             }}
           />
           {errors.price && <div className="error" style={{ color: theme.primary }}>{errors.price}</div>}
         </div>
-        <button 
-          type="submit" 
-          className="submit-btn" 
-          disabled={loading}
-          style={{
-            backgroundColor: theme.primary,
-            border: `2px solid ${theme.border}`,
-            color: 'white',
-            fontWeight: 'bold',
-            transition: 'all 0.3s ease'
-          }}
-        >
-          {loading ? 'Placing...' : 'Place Order'}
-        </button>
+
+        {/* Submit button spans full width */}
+        <div className="form-group" style={{ gridColumn: '1 / -1', textAlign: 'center', marginTop: '1rem' }}>
+          <button 
+            type="submit" 
+            className="submit-btn" 
+            disabled={loading}
+            style={{
+              backgroundColor: theme.primary,
+              border: `2px solid ${theme.border}`,
+              color: 'white',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              padding: '0.75rem 2rem',
+              borderRadius: '8px',
+              fontSize: '1.1rem',
+              cursor: 'pointer',
+              minWidth: '200px'
+            }}
+          >
+            {loading ? 'Placing...' : 'Place Order'}
+          </button>
+        </div>
       </form>
     </div>
   );

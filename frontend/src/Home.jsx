@@ -39,7 +39,6 @@ function Home() {
         {activeTab === 'orderslist' && <OrdersList showBackButton={false} />}
         {activeTab === 'VirtualPortfolioScreen' && <VirtualPortfolioScreen />}
       </div>
-      <hr />
     </div>
   );
 }

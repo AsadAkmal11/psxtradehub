@@ -73,7 +73,6 @@
   pointer-events: auto;
 }
 
-/* Resize handles */
 .resize-handle {
   position: absolute;
   background: transparent;
@@ -146,7 +145,6 @@
   cursor: sw-resize;
 }
 
-/* Hover effects for resize handles */
 .resize-handle:hover {
   background: rgba(240, 185, 11, 0.3);
   border: 1px solid rgba(240, 185, 11, 0.5);
@@ -162,7 +160,6 @@
   background: linear-gradient(to bottom, transparent, rgba(240, 185, 11, 0.2), transparent);
 }
 
-/* Corner resize handles */
 .resize-ne:hover,
 .resize-nw:hover,
 .resize-se:hover,
@@ -170,7 +167,6 @@
   background: rgba(240, 185, 11, 0.3);
 }
 
-/* Minimized state */
 .resizable-window.minimized {
   width: 320px !important;
   height: 56px !important;
@@ -182,12 +178,10 @@
   display: none;
 }
 
-/* Draggable window indicator */
 .draggable-window .window-header:hover {
   background: linear-gradient(135deg, #2A2D36 0%, #32353F 100%);
 }
 
-/* Scrollbar styling */
 .window-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -205,7 +199,6 @@
   background: #D4A017;
 }
 
-/* Animation for window opening */
 .resizable-window {
   animation: windowOpen 0.3s ease-out;
 }
@@ -221,7 +214,7 @@
   }
 }
 
-/* Focus indicator */
+
 .resizable-window:focus-within {
   border-color: #F0B90B;
   box-shadow: 0 0 0 2px rgba(240, 185, 11, 0.3);
