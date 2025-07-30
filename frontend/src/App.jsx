@@ -10,6 +10,7 @@ import Customers from './Customers';
 import Exchange from './Exchange';
 import Order from './Order';
 import OrdersList from './OrdersList';
+import EChartsTest from './EChartsTest';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Window from './Window.jsx';
@@ -29,7 +30,8 @@ const COMPONENT_MAP = {
   Customers,
   Exchange,
   Order,
-  OrdersList
+  OrdersList,
+  EChartsTest
 };
 
 function App() {
@@ -109,6 +111,7 @@ function AppContent() {
     { key: 'currency', label: 'Currency', icon: FaMoneyBillWave },
     { key: 'customers', label: 'Customers Information', icon: FaUserFriends },
     { key: 'exchange', label: 'Exchange', icon: FaExchangeAlt },
+    { key: 'echartstest', label: 'ECharts Test', icon: FaChartLine }
   ];
 
   const handleLogout = () => {

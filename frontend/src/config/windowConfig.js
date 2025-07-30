@@ -90,6 +90,16 @@ export const WINDOW_CONFIG = {
     minHeight: 500,
     maxWidth: 1400,
     maxHeight: 900
+  },
+  echartstest: { 
+    title: 'ECharts Test', 
+    component: 'EChartsTest',
+    defaultWidth: 1000,
+    defaultHeight: 700,
+    minWidth: 800,
+    minHeight: 500,
+    maxWidth: 1400,
+    maxHeight: 900
   }
 };
 

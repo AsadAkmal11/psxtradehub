@@ -10,6 +10,8 @@ import Customers from '../Customers';
 import Exchange from '../Exchange';
 import Order from '../Order';
 import OrdersList from '../OrdersList';
+import EChartsTest from '../EChartsTest';
+import ErrorBoundary from './ErrorBoundary';
 import './WindowManager.css';
 
 const WindowManager = ({ 
@@ -51,7 +53,8 @@ const WindowManager = ({
     Customers,
     Exchange,
     Order,
-    OrdersList
+    OrdersList,
+    EChartsTest
   };
 
   // Get window configuration
@@ -133,9 +136,11 @@ const WindowManager = ({
             draggable={windowState === 'normal'}
           >
             <div className="window-content-wrapper">
-              {React.createElement(config.component, {
-                onBack: () => onWindowClose(windowId)
-              })}
+              <ErrorBoundary>
+                {React.createElement(config.component, {
+                  onBack: () => onWindowClose(windowId)
+                })}
+              </ErrorBoundary>
             </div>
           </ResizableWindow>
         );

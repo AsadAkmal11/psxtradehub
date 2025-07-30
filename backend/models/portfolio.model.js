@@ -34,8 +34,4 @@ const Portfolio = sequelize.define('Portfolio', {
   tableName: 'portfolios'
 });
 
-Portfolio.belongsTo(Customer, { foreignKey: 'customerNo', targetKey: 'customerNo' });
-Customer.hasMany(Portfolio, { foreignKey: 'customerNo', sourceKey: 'customerNo' });
-
-
 module.exports = Portfolio; 
