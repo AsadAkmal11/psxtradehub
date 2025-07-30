@@ -18,6 +18,6 @@ router.get('/portfolios', async (req, res) => {
   }
 });
 router.get('/customerPortfolio/:customerNo', customerController.getCustomerPortfolio);
-router.delete('/CustomerPortfolio/:customerNo',customerController.deleteCustomer);
+router.post('/CustomerPortfolio/:customerNo',customerController.deleteCustomer);
 router.put('/customers/:customerNo', customerController.editCustomer);
 module.exports = router; 
