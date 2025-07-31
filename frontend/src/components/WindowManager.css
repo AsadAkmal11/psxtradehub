@@ -1,7 +1,6 @@
 .window-manager {
   position: fixed;
-  top: 0;
-  left: 0;
+  top:0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
@@ -16,7 +15,7 @@
   height: 100%;
   width: 100%;
   overflow: auto;
-  padding: 16px;
+  /* padding: 16px; */
   box-sizing: border-box;
   pointer-events: auto;
 }

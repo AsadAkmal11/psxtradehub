@@ -35,7 +35,7 @@ export const WINDOW_CONFIG = {
     title: 'Portfolio', 
     component: 'Portfolio',
     defaultWidth: 1000,
-    defaultHeight: 750,    // Increased for form content
+    defaultHeight: 675,    // Increased for form content
     minWidth: 800,
     minHeight: 600,
     maxWidth: 1400,
@@ -75,7 +75,7 @@ export const WINDOW_CONFIG = {
     title: 'Exchange', 
     component: 'Exchange',
     defaultWidth: 900,
-    defaultHeight: 650,    // Increased for form content
+    defaultHeight: 600,    // Increased for form content
     minWidth: 700,
     minHeight: 500,
     maxWidth: 1300,
@@ -84,8 +84,8 @@ export const WINDOW_CONFIG = {
   order: { 
     title: 'Buy/Sell Order', 
     component: 'Order',
-    defaultWidth: 1200,    // For 3-column layout
-    defaultHeight: 700,    // Increased for form content
+    defaultWidth: 1065,    // For 3-column layout
+    defaultHeight: 675,    // Increased for form content
     minWidth: 900,         // Increased for proper layout
     minHeight: 550,
     maxWidth: 1500,
@@ -105,7 +105,7 @@ export const WINDOW_CONFIG = {
     title: 'ECharts Test', 
     component: 'EChartsTest',
     defaultWidth: 1000,
-    defaultHeight: 600,
+    defaultHeight: 750,
     minWidth: 800,
     minHeight: 500,
     maxWidth: 1400,

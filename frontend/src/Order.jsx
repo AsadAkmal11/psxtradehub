@@ -45,8 +45,8 @@ export default function Order({ onBack }) {
     }
     return {
       primary: '#F0B90B',
-      secondary: '#FFF8E1',
-      border: '#F0B90B',
+      secondary: '#2A2D3A',
+      border: '#F0B90B33',
       text: '#B8860B'
     };
   };
@@ -163,7 +163,7 @@ export default function Order({ onBack }) {
             onChange={handleChange}
             style={{
               border: `2px solid ${theme.border}`,
-              backgroundColor: 'white',
+              backgroundColor: '#23262F',
               color: theme.text,
               transition: 'border-color 0.3s ease',
               width: '100%',

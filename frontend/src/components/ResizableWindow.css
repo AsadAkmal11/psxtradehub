@@ -67,7 +67,9 @@
 }
 
 .window-content {
-  height: calc(100% - 48px);
+  /* height: calc(100% - 48px); */
+  /* height: 100%; */
+  /* width: 100%; */
   overflow: auto;
   background: rgba(35, 38, 47, 0.95);
   pointer-events: auto;

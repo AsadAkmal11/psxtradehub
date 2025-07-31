@@ -206,7 +206,7 @@ const EChartsTest = () => {
         }} 
       />
 
-      <div style={{ marginTop: '20px', fontSize: '12px', color: '#666' }}>
+      {/* <div style={{ marginTop: '20px', fontSize: '12px', color: '#666' }}>
         <h4>Color Customization Options:</h4>
         <ul>
           <li><strong>Single Color:</strong> Set one color for all bars</li>
@@ -214,7 +214,7 @@ const EChartsTest = () => {
           <li><strong>Gradient Colors:</strong> Linear gradients for visual appeal</li>
           <li><strong>Theme Colors:</strong> Predefined color palettes</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };
