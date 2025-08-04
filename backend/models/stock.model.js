@@ -15,7 +15,7 @@ const Stock = sequelize.define('Stock', {
   },
 
   symbol: {
-    type: DataTypes.STRING(10),
+    type: DataTypes.STRING(100),
     allowNull: false,
     field: 'Symbol'
   },

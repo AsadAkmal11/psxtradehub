@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BackButton from './components/BackButton';
+// import BackButton from './components/BackButton';
 
 function MarketWatch({ onBack }) {
   const [stocks, setStocks] = useState([]);
@@ -54,7 +54,7 @@ function MarketWatch({ onBack }) {
 
   return (
     <div className="marketwatch-container">
-      <BackButton onBack={onBack} />
+      {/* <BackButton onBack={onBack} /> */}
       <h2>Market Watch</h2>
       {message && <div className="watchlist-message">{message}</div>}
       <input

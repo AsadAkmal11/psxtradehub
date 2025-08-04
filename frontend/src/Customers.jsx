@@ -78,7 +78,7 @@ function Customers() {
     handleCloseContextMenu();
     if (!window.confirm('Delete this customer?')) return;
     try {
-      const response = await axios.delete(`/api/CustomerPortfolio/${customerNo}`);
+      const response = await axios.post(`/api/CustomerPortfolio/${customerNo}`);
       if (response.status === 200) {
         setMessage('Customer deleted successfully');
         fetchCustomers();

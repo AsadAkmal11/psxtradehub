@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import BackButton from './components/BackButton';
+// import BackButton from './components/BackButton';
 import useInterval from './components/useInterval';
 import './App.css';
 
-export default function OrdersList({ onBack, showBackButton = true }) {
+export default function OrdersList() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -54,7 +54,7 @@ export default function OrdersList({ onBack, showBackButton = true }) {
 
   return (
     <div className="form-container" style={{ maxWidth: 1100 }}>
-      {showBackButton && <BackButton onBack={onBack} />}
+      {/* {showBackButton && <BackButton onBack={onBack} />} */}
       <h2>Orders List</h2>
 
       <div style={{ 

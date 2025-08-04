@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import BackButton from './components/BackButton';
+// import BackButton from './components/BackButton';
 import { commonStyles, theme } from './components/ThemeProvider';
 
 function StockUpload({ onBack }) {
@@ -55,7 +55,7 @@ function StockUpload({ onBack }) {
 
   return (
     <div style={commonStyles.container}>
-      <BackButton onBack={onBack} />
+      {/* <BackButton onBack={onBack} /> */}
       <h2 style={commonStyles.header}>Stock Upload</h2>
       <div style={{ marginBottom: theme.spacing.lg }}>
         <input 
